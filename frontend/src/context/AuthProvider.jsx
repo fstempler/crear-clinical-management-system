@@ -1,47 +1,47 @@
-import { useEffect, useMemo, useState } from 'react'
-import { pb } from '../lib/pocketbase'
-import { AuthContext } from './AuthContext'
+import { useEffect, useMemo, useState } from "react";
+import { pb } from "../lib/pocketbase";
+import { AuthContext } from "./AuthContext";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(pb.authStore.record)
-  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState(pb.authStore.record);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = pb.authStore.onChange((_token, record) => {
-      setUser(record)
-    }, true)
+      setUser(record);
+    }, true);
 
     const validateSession = async () => {
       if (!pb.authStore.isValid) {
-        setIsLoading(false)
-        return
+        setIsLoading(false);
+        return;
       }
 
       try {
-        await pb.collection('staff_users').authRefresh()
+        await pb.collection("staff_users").authRefresh();
       } catch {
-        pb.authStore.clear()
+        pb.authStore.clear();
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    validateSession()
+    validateSession();
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   const login = async (email, password) => {
     const authData = await pb
-      .collection('staff_users')
-      .authWithPassword(email, password)
+      .collection("staff_users")
+      .authWithPassword(email, password);
 
-    return authData.record
-  }
+    return authData.record;
+  };
 
   const logout = () => {
-    pb.authStore.clear()
-  }
+    pb.authStore.clear();
+  };
 
   const value = useMemo(
     () => ({
@@ -49,18 +49,12 @@ export function AuthProvider({ children }) {
       isLoading,
       login,
       logout,
-      isAuthenticated: Boolean(
-        pb.authStore.isValid && user && user.active
-      ),
-      isAdmin: user?.role === 'admin',
-      isProfessional: user?.role === 'professional',
+      isAuthenticated: Boolean(pb.authStore.isValid && user && user.active),
+      isAdmin: user?.role === "admin",
+      isProfessional: user?.role === "professional",
     }),
-    [user, isLoading]
-  )
+    [user, isLoading],
+  );
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
