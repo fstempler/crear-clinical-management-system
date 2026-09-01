@@ -1,0 +1,127 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f7f9fc;
+  color: #142454;
+}
+
+.card {
+  width: min(100%, 440px);
+  padding: 40px;
+  border: 1px solid #dde3ec;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(20, 36, 84, 0.08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.logo {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: #12349a;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.brandName,
+.brandDescription {
+  margin: 0;
+}
+
+.brandName {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.brandDescription {
+  margin-top: 3px;
+  color: #5e6878;
+  font-size: 13px;
+}
+
+.heading {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+  }
+
+  p {
+    margin: 0;
+    color: #5e6878;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 20px;
+
+  label {
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  input {
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid #dde3ec;
+    border-radius: 10px;
+    color: #142454;
+    font: inherit;
+
+    &:focus {
+      border-color: #2856c7;
+      outline: 3px solid rgba(40, 86, 199, 0.12);
+    }
+  }
+
+  button {
+    min-height: 50px;
+    border: 0;
+    border-radius: 10px;
+    background: #12349a;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: #2856c7;
+    }
+
+    &:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+  }
+}
+
+.error {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(196, 61, 61, 0.1);
+  color: #c43d3d;
+  font-size: 14px;
+}
+
+@media (max-width: 520px) {
+  .card {
+    padding: 28px 22px;
+  }
+}
