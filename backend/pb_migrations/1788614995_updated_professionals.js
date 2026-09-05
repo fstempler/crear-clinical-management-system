@@ -16,7 +16,10 @@ migrate((app) => {
 
   // update collection data
   unmarshal({
-    "indexes": []
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_professionals_staff_user`\nON `professionals` (`staff_user`),\n",
+      "CREATE UNIQUE INDEX `idx_professionals_document_number`\nON `professionals` (`document_number`)"
+    ]
   }, collection)
 
   return app.save(collection)
