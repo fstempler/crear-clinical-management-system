@@ -1,0 +1,16 @@
+{
+  "name": "crear-patient-import",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Herramienta administrativa para importar pacientes desde CSV a PocketBase.",
+  "scripts": {
+    "validate": "node import-patients.mjs --validate-only --file examples/patients-test.csv",
+    "dry-run": "node --env-file=.env import-patients.mjs --dry-run --file examples/patients-test.csv",
+    "import": "node --env-file=.env import-patients.mjs --apply --file examples/patients-test.csv"
+  },
+  "dependencies": {
+    "csv-parse": "^6.1.0",
+    "pocketbase": "^0.28.0"
+  }
+}

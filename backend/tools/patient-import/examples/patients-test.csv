@@ -1,0 +1,4 @@
+first_name,last_name,document_type,document_number,birth_date,gender,address,city,phone,email,health_insurance,affiliate_number,status,emergency_contact_name,emergency_contact_relationship,emergency_contact_phone,administrative_notes
+Sofía,Paciente Prueba,dni,FICTICIO-0001,2014-03-12,female,"Calle Ficticia 101",Arrecifes,2478000001,sofia.paciente@example.test,Obra Social Demo,AF-TEST-001,active,Carolina Prueba,Madre,2478000101,Registro completamente ficticio para probar la importación.
+Martín,Paciente Prueba,dni,FICTICIO-0002,2011-08-25,male,"Avenida de Prueba 202",Arrecifes,2478000002,martin.paciente@example.test,Obra Social Demo,AF-TEST-002,active,Diego Prueba,Padre,2478000102,Registro completamente ficticio para probar la importación.
+Lucía,Paciente Prueba,passport,FICTICIO-0003,2016-11-04,not_specified,"Pasaje Simulado 303",Arrecifes,2478000003,lucia.paciente@example.test,,,inactive,Andrea Prueba,Tutora,2478000103,"Registro ficticio, sin datos clínicos reales."
