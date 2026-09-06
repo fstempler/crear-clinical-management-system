@@ -20,6 +20,15 @@ export function getFullName(record) {
     "Paciente sin nombre"
   );
 }
+export const patientDocumentTypes = {
+  dni: "DNI",
+  passport: "Pasaporte",
+  other: "Documento",
+};
+
+export function getPatientDocumentType(type) {
+  return patientDocumentTypes[type] || "Documento";
+}
 export function getUserPresentation(user, profile) {
   if (user?.role === "admin")
     return {
