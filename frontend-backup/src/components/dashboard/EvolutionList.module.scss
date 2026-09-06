@@ -1,0 +1,93 @@
+.card {
+  padding: 20px;
+  border: 1px solid #dde3ec;
+  border-radius: 12px;
+  background: #fff;
+}
+.card h2 {
+  margin: 0;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #dde3ec;
+  color: #12349a;
+  font-size: 22px;
+}
+.list {
+  display: grid;
+}
+.item {
+  padding: 16px 4px;
+  border-bottom: 1px solid #dde3ec;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) 20px;
+  gap: 12px;
+  align-items: start;
+}
+.item:last-child {
+  border-bottom: 0;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border: 2px solid #2856c7;
+  border-radius: 50%;
+}
+.item > div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.date {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #5e6878;
+  font-size: 13px;
+}
+.item p {
+  margin: 0;
+  color: #5e6878;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item > svg {
+  align-self: center;
+  color: #5e6878;
+}
+.history {
+  display: block;
+  padding-top: 16px;
+  color: #12349a;
+  text-align: center;
+  font-weight: 600;
+}
+.card a:focus-visible {
+  border-radius: 5px;
+  outline: 3px solid rgba(40, 86, 199, 0.35);
+  outline-offset: 2px;
+}
+@media (max-width: 650px) {
+  .card {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .card h2 {
+    padding-bottom: 14px;
+    border: 0;
+    font-size: 21px;
+  }
+  .list {
+    border: 1px solid #dde3ec;
+    border-radius: 9px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .item {
+    padding: 15px;
+  }
+  .history {
+    display: none;
+  }
+}

@@ -32,7 +32,9 @@ export function LoginPage() {
   };
 
   if (isLoading) return <p>Cargando sesión...</p>;
-  if (isAuthenticated) return <Navigate to="/" replace />;
+  if (isAuthenticated) {
+    return <Navigate to={destination} replace />;
+  }
 
   return (
     <main className={styles.page}>

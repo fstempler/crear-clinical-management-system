@@ -1,0 +1,236 @@
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px;
+  color: #142454;
+}
+.welcome {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.welcome h1 {
+  margin: 0;
+  color: #12349a;
+  font-size: 40px;
+}
+.welcome p {
+  margin: 10px 0 0;
+  font-size: 19px;
+}
+.welcome time {
+  white-space: nowrap;
+  color: #142454;
+}
+.profileState {
+  margin-bottom: 22px;
+  border: 1px solid #dde3ec;
+  border-radius: 10px;
+  background: #fff;
+}
+.search {
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr 136px;
+  gap: 20px;
+}
+.search label {
+  height: 60px;
+  padding: 0 20px;
+  border: 1px solid #cbd2df;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 18px;
+}
+.search label:focus-within {
+  border-color: #2856c7;
+  box-shadow: 0 0 0 3px rgba(40, 86, 199, 0.16);
+}
+.search button {
+  border: 1px solid #12349a;
+  border-radius: 10px;
+  background: #12349a;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.search button:disabled {
+  border-color: #b7becb;
+  background: #b7becb;
+  cursor: not-allowed;
+}
+.search button:focus-visible,
+.actions a:focus-visible {
+  outline: 3px solid rgba(40, 86, 199, 0.35);
+  outline-offset: 3px;
+}
+.actions {
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.actions > a {
+  min-height: 126px;
+  padding: 20px;
+  border: 1px solid #cbd2df;
+  border-radius: 10px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 17px;
+}
+.actions > a > span {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e9f0ff;
+  color: #12349a;
+}
+.actions > a > div {
+  display: grid;
+  gap: 6px;
+}
+.actions strong {
+  font-size: 23px;
+}
+.actions small {
+  color: #5e6878;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.actions > a > svg {
+  display: none;
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(310px, 1fr);
+  gap: 30px;
+}
+.main,
+.side {
+  display: grid;
+  align-content: start;
+  gap: 28px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 1100px) and (min-width: 901px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    grid-template-columns: 1fr 1fr;
+  }
+  .side > *:last-child {
+    grid-column: 1/-1;
+  }
+}
+@media (max-width: 900px) {
+  .page {
+    padding: 24px 15px 32px;
+  }
+  .welcome {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .welcome h1 {
+    font-size: 28px;
+  }
+  .welcome p {
+    display: none;
+  }
+  .welcome time {
+    display: block;
+    margin-top: 9px;
+  }
+  .search {
+    display: block;
+    margin-bottom: 22px;
+  }
+  .search label {
+    height: 44px;
+    padding: 0 12px;
+  }
+  .search input {
+    font-size: 14px;
+  }
+  .search button {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .actions > a {
+    min-height: 56px;
+    padding: 7px 12px;
+    grid-template-columns: 36px 1fr 22px;
+  }
+  .actions > a > span {
+    width: 34px;
+    height: 34px;
+  }
+  .actions strong {
+    font-size: 18px;
+  }
+  .actions small {
+    display: none;
+  }
+  .actions > a > svg {
+    display: block;
+  }
+  .actions .primary {
+    background: #12349a;
+    color: #fff;
+  }
+  .actions .primary > span {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .main,
+  .side {
+    display: contents;
+  }
+  .main {
+    order: 1;
+  }
+  .side > *:first-child {
+    order: 3;
+  }
+  .side > *:last-child {
+    order: 2;
+  }
+}

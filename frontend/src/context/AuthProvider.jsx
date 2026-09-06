@@ -7,28 +7,44 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let active = true;
+
     const unsubscribe = pb.authStore.onChange((_token, record) => {
-      setUser(record);
+      if (active) {
+        setUser(record);
+      }
     }, true);
 
     const validateSession = async () => {
       if (!pb.authStore.isValid) {
-        setIsLoading(false);
+        if (active) {
+          setIsLoading(false);
+        }
         return;
       }
 
       try {
-        await pb.collection("staff_users").authRefresh();
-      } catch {
-        pb.authStore.clear();
+        await pb.collection("staff_users").authRefresh({
+          requestKey: null,
+        });
+      } catch (error) {
+        // Una cancelación no significa que las credenciales sean inválidas.
+        if (active && !error?.isAbort) {
+          pb.authStore.clear();
+        }
       } finally {
-        setIsLoading(false);
+        if (active) {
+          setIsLoading(false);
+        }
       }
     };
 
     validateSession();
 
-    return unsubscribe;
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   const login = async (email, password) => {

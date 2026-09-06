@@ -85,3 +85,39 @@ export async function getPatientsPage({ role, professionalId, page, search, stat
     requestKey: null,
   });
 }
+
+export async function getPatientProfile(patientId) {
+  return pb.collection("patients").getOne(patientId, { requestKey: null });
+}
+
+export async function getPatientProfessionals(patientId) {
+  return pb.collection("patient_professionals").getFullList({
+    filter: pb.filter("patient = {:patientId} && active = true", { patientId }),
+    expand: "professional,professional.staff_user",
+    sort: "professional.last_name,professional.first_name",
+    requestKey: null,
+  });
+}
+
+export async function getPatientEvolutions(patientId) {
+  return pb.collection("evolutions").getList(1, 3, {
+    filter: pb.filter("patient = {:patientId}", { patientId }),
+    expand: "author",
+    sort: "-evolution_date,-created",
+    requestKey: null,
+  }).then((result) => result.items);
+}
+
+export async function getPatientFiles(patientId) {
+  return pb.collection("patient_files").getList(1, 4, {
+    filter: pb.filter("patient = {:patientId}", { patientId }),
+    expand: "uploaded_by",
+    sort: "-created",
+    requestKey: null,
+  }).then((result) => result.items);
+}
+
+export function getPatientFileUrl(record, options) {
+  const fileName = record?.file;
+  return fileName ? pb.files.getURL(record, fileName, options) : "";
+}

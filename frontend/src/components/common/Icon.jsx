@@ -100,6 +100,24 @@ const icons = {
       <path d="M18 16a8 8 0 1 1 1-8l1 4" />
     </>
   ),
+  file: (
+    <>
+      <path d="M6 2h8l4 4v16H6z" />
+      <path d="M14 2v5h5M9 12h6M9 16h6" />
+    </>
+  ),
+  folder: (
+    <path d="M3 6h7l2 2h9v11H3z" />
+  ),
+  mail: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m4 7 8 6 8-6" />
+    </>
+  ),
+  shield: (
+    <path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6z" />
+  ),
 };
 export function Icon({ name, size = 24, className }) {
   return (
