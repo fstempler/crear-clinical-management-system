@@ -9,6 +9,7 @@ import { NewPatientPage } from "./pages/patients/NewPatientPage";
 import { PatientProfilePage } from "./pages/patients/PatientProfilePage";
 import { NewEvolutionPage } from "./pages/evolutions/NewEvolutionPage";
 import { EvolutionDetailPage } from "./pages/evolutions/EvolutionDetailPage";
+import { EditEvolutionPage } from "./pages/evolutions/EditEvolutionPage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 
 function App() {
@@ -54,6 +55,10 @@ function App() {
             <Route
               path="evolutions/new"
               element={<NewEvolutionPage />}
+            />
+            <Route
+              path="evolutions/:evolutionId/edit"
+              element={<EditEvolutionPage />}
             />
           </Route>
 

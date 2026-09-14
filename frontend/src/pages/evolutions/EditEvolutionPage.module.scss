@@ -1,0 +1,84 @@
+.page { max-width: 1080px; margin: 0 auto; padding: 42px 48px 80px; color: #142454; }
+.breadcrumb { margin-bottom: 24px; display: flex; align-items: center; gap: 8px; color: #5e6878; font-size: 14px; }
+.breadcrumb a, .back { color: #12349a; }
+.breadcrumb strong { color: #172233; }
+.breadcrumb a:hover, .back:hover { text-decoration: underline; }
+.back { width: fit-content; min-height: 44px; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 7px; font-weight: 700; }
+.patientCard { padding: 18px 22px; border: 1px solid #cbd2df; border-radius: 13px; display: flex; align-items: center; gap: 15px; background: #fff; }
+.avatar { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #12349a; font-weight: 750; }
+.patientCard h1 { margin: 0 0 5px; color: #12349a; font-size: 21px; }
+.patientCard p { margin: 0; display: flex; flex-wrap: wrap; gap: 7px 22px; color: #4f596a; font-size: 14px; }
+.patientCard p span + span::before { content: "•"; margin-right: 22px; color: #8c95a4; }
+.heading { margin: 30px 0 22px; display: flex; align-items: flex-start; gap: 13px; color: #12349a; }
+.heading > svg { flex: 0 0 auto; margin-top: 5px; }
+.heading h1 { margin: 0; color: #172233; font-size: clamp(32px, 4vw, 42px); line-height: 1.15; }
+.heading p { margin: 8px 0 0; color: #5e6878; font-size: 16px; }
+.notice { margin-bottom: 24px; padding: 16px 18px; border: 1px solid #b9c9ee; border-left: 4px solid #12349a; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px; color: #263d79; background: #eef3ff; }
+.notice svg { flex: 0 0 auto; margin-top: 2px; }
+.notice p { margin: 0; font-size: 14px; line-height: 1.5; }
+.notice strong { display: block; margin-bottom: 2px; }
+.card { margin-bottom: 22px; overflow: hidden; border: 1px solid #cbd2df; border-radius: 13px; background: #fff; box-shadow: 0 2px 7px rgba(20, 36, 84, .05); }
+.card > h2 { min-height: 60px; margin: 0; padding: 16px 22px; border-bottom: 1px solid #dde3ec; display: flex; align-items: center; gap: 10px; color: #172233; font-size: 20px; }
+.card > h2 svg { color: #12349a; }
+.cardBody { padding: 24px; }
+.infoGrid { margin: 0; padding: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.infoGrid div { min-width: 0; }
+.infoGrid dt { margin-bottom: 6px; color: #667184; font-size: 12px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+.infoGrid dd { margin: 0; color: #26344b; font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.inlineWarning { margin: 0 22px 22px; padding: 12px 14px; border-radius: 8px; color: #72510a; background: #fff7df; font-size: 13px; line-height: 1.45; }
+.twoColumns { margin-bottom: 24px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 22px; }
+.field { min-width: 0; display: flex; flex-direction: column; }
+.field label { margin-bottom: 8px; color: #26344b; font-size: 15px; font-weight: 650; }
+.field label > span { color: #b42318; }
+.field label small { color: #6d7685; font-weight: 500; }
+.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid #bfc7d5; border-radius: 9px; color: #172233; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.field textarea { min-height: 270px; line-height: 1.58; resize: vertical; white-space: pre-wrap; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #7f8ca2; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: #2856c7; outline: 0; box-shadow: 0 0 0 3px rgba(40, 86, 199, .18); }
+.field :is(input, select, textarea)[aria-invalid="true"] { border-color: #b42318; }
+.fieldError { margin-top: 6px; color: #9d2828; font-size: 13px; font-weight: 600; }
+.hint { margin: -3px 0 9px; color: #687386; font-size: 13px; line-height: 1.45; }
+.formError { margin-bottom: 20px; padding: 14px 16px; border: 1px solid #e5b4b4; border-radius: 10px; color: #922d2d; background: #fff2f2; line-height: 1.45; }
+.noChanges { margin: -3px 0 14px; color: #687386; text-align: right; font-size: 13px; }
+.actions { display: flex; justify-content: flex-end; gap: 12px; }
+.cancel, .submit, .state :is(a, button) { min-height: 48px; padding: 0 22px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 700; cursor: pointer; }
+.cancel { border: 1px solid #aeb8c9; color: #142454; background: #fff; }
+.submit { border: 1px solid #12349a; color: #fff; background: #12349a; }
+.submit:hover:not(:disabled) { background: #0c287e; }
+.submit:disabled { opacity: .58; cursor: not-allowed; }
+.state { max-width: 660px; margin: 70px auto; padding: 34px; border: 1px solid #d9dfe9; border-radius: 14px; display: grid; justify-items: center; gap: 12px; background: #fff; text-align: center; }
+.state > svg { color: #2856c7; }
+.state h1, .state p { margin: 0; }
+.state h1 { color: #172233; font-size: 28px; }
+.state p { color: #5e6878; line-height: 1.55; }
+.state > div { margin-top: 8px; display: flex; gap: 10px; }
+.state :is(a, button) { border: 1px solid #12349a; color: #12349a; background: #fff; }
+.state button { color: #fff; background: #12349a; }
+.page :is(a, button, input, select, textarea):focus-visible { outline: 3px solid rgba(40, 86, 199, .3); outline-offset: 3px; }
+@media (max-width: 1100px) { .page { padding: 36px 30px 76px; } }
+@media (max-width: 900px) { .page { padding: 26px 22px 112px; } .breadcrumb { display: none; } }
+@media (max-width: 700px) {
+  .page { padding: 18px 14px 118px; }
+  .back { margin-bottom: 16px; font-size: 14px; }
+  .patientCard { padding: 14px 16px; }
+  .avatar { width: 46px; height: 46px; flex-basis: 46px; font-size: 13px; }
+  .patientCard h1 { font-size: 17px; }
+  .patientCard p { gap: 4px 10px; font-size: 12px; }
+  .patientCard p span + span::before { margin-right: 10px; }
+  .heading { margin: 24px 2px 18px; gap: 10px; }
+  .heading h1 { font-size: 29px; }
+  .heading p { font-size: 14px; }
+  .notice { padding: 14px; }
+  .card > h2 { min-height: 54px; padding: 15px 17px; font-size: 18px; }
+  .cardBody { padding: 19px 17px 21px; }
+  .infoGrid, .twoColumns { grid-template-columns: 1fr; }
+  .infoGrid { padding: 18px 17px; gap: 16px; }
+  .infoGrid div + div { padding-top: 14px; border-top: 1px solid #e5e9f0; }
+  .twoColumns { gap: 18px; }
+  .field textarea { min-height: 300px; }
+  .noChanges { text-align: left; }
+  .actions { flex-direction: column-reverse; }
+  .cancel, .submit { width: 100%; }
+  .state { margin: 30px auto; padding: 28px 19px; }
+  .state > div { width: 100%; flex-direction: column; }
+}

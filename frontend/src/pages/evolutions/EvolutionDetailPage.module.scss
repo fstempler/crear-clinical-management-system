@@ -14,15 +14,20 @@
 .active { color: #126b4d; background: #eaf7f0; }
 .inactive, .unknown { color: #4f596a; background: #eef1f6; }
 .discharged { color: #825304; background: #fff4d8; }
-.newEvolution, .mobileBack { min-height: 46px; padding: 0 18px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; }
+.patientActions { display: flex; align-items: center; gap: 10px; }
+.newEvolution, .editEvolution, .mobileBack { min-height: 46px; padding: 0 18px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; }
 .newEvolution { color: #fff; background: #12349a; }
 .newEvolution:hover { background: #0c287e; }
+.editEvolution { border: 1px solid #12349a; color: #12349a; background: #fff; }
+.editEvolution:hover { background: #eef3ff; }
 .tabs { margin: 18px 0 24px; border-bottom: 1px solid #cbd2df; display: flex; overflow-x: auto; }
 .tabs :is(a, span) { min-height: 50px; padding: 0 15px; border-bottom: 3px solid transparent; display: inline-flex; align-items: center; color: #4d5563; font-size: 14px; font-weight: 650; white-space: nowrap; }
 .tabs span[aria-current="page"] { border-bottom-color: #12349a; color: #12349a; }
 .tabs a:hover { color: #12349a; background: #f1f5ff; }
 .notice { margin-bottom: 22px; padding: 14px 17px; border: 1px solid #b9c9ee; border-left: 4px solid #12349a; border-radius: 10px; display: flex; align-items: flex-start; gap: 11px; color: #263d79; background: #eef3ff; font-size: 14px; line-height: 1.45; }
 .notice svg { flex: 0 0 auto; }
+.successNotice { margin-bottom: 22px; padding: 14px 17px; border: 1px solid #a9dbc4; border-left: 4px solid #177453; border-radius: 10px; display: flex; align-items: flex-start; gap: 11px; color: #126044; background: #edf9f3; font-size: 14px; line-height: 1.45; }
+.successNotice svg { flex: 0 0 auto; }
 .columns { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(300px, .86fr); align-items: start; gap: 24px; }
 .primaryColumn, .secondaryColumn { display: grid; gap: 22px; }
 .card { overflow: hidden; border: 1px solid #cbd2df; border-radius: 13px; background: #fff; box-shadow: 0 1px 3px rgba(20, 36, 84, .04); }
@@ -82,7 +87,9 @@ a.nearbyItem > svg { order: 2; margin-left: auto; }
   .patientIdentity h1 { margin-bottom: 4px; color: #12349a; font-size: 14px; }
   .patientIdentity > div { gap: 3px 10px; font-size: 11px; }
   .patientIdentity > div > span:not(:last-child):not(.status)::after { margin-left: 10px; }
-  .patientCard > .newEvolution { width: 44px; min-height: 44px; padding: 0; font-size: 0; }
+  .patientActions { display: contents; }
+  .patientCard .editEvolution { display: none; }
+  .patientCard .newEvolution { width: 44px; min-height: 44px; padding: 0; font-size: 0; }
   .notice { margin: 14px 0; padding: 12px; font-size: 12px; }
   .columns, .primaryColumn, .secondaryColumn { gap: 12px; }
   .summaryCard { padding: 16px; align-items: flex-start; flex-direction: column; gap: 15px; }
@@ -105,7 +112,7 @@ a.nearbyItem > svg { order: 2; margin-left: auto; }
   .mobileNearby small { color: #4f596a; }
   .mobileNearby strong { overflow: hidden; color: #12349a; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
   .mobileActions { margin-top: 15px; display: grid; gap: 8px; }
-  .mobileActions .newEvolution, .mobileBack { width: 100%; min-height: 44px; }
+  .mobileActions .newEvolution, .mobileActions .editEvolution, .mobileBack { width: 100%; min-height: 44px; }
   .mobileBack { border: 1px solid #cbd2df; color: #12349a; background: #fff; }
   .state { margin: 30px auto; padding: 32px 18px; }
   .state > div { width: 100%; flex-direction: column; }

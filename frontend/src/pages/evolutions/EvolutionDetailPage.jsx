@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { Icon } from "../../components/common/Icon";
 import { SectionState } from "../../components/dashboard/SectionState";
 import { useAuth } from "../../hooks/useAuth";
@@ -100,7 +101,16 @@ function NearbyItem({ record, current = false }) {
 export function EvolutionDetailPage() {
   const { evolutionId } = useParams();
   const { user } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showUpdatedMessage] = useState(Boolean(location.state?.evolutionUpdated));
   const detail = useEvolutionDetail(evolutionId);
+
+  useEffect(() => {
+    if (location.state?.evolutionUpdated) {
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location.pathname, location.state, navigate]);
 
   if (detail.isLoading) return <main className={styles.page}><SectionState type="loading" message="Cargando evolución clínica…" /></main>;
   if (detail.error) return <StatePage error={detail.error} retry={detail.retry} />;
@@ -115,7 +125,7 @@ export function EvolutionDetailPage() {
   const author = professionalName(authorProfile, authorUser);
   const license = professionalLicense(authorProfile);
   const isAuthor = user.role === "professional" && evolution.author === user.id;
-  const canEdit = isEvolutionEditable(evolution, user); // Preparado para una futura ruta de edición.
+  const canEdit = isEvolutionEditable(evolution, user);
   const readOnlyMessage = user.role === "admin"
     ? "La administración puede consultar este registro en modo de solo lectura."
     : !isAuthor
@@ -145,13 +155,17 @@ export function EvolutionDetailPage() {
           <h1>{patientName}</h1>
           <div>{document && <span>{document}</span>}{historyNumber && <span>HC {historyNumber}</span>}<span className={`${styles.status} ${styles[status.tone]}`}>● {status.label}</span>{treatment && <span>{treatment}</span>}</div>
         </Link>
-        {user.role === "professional" && <Link className={styles.newEvolution} to={`/evolutions/new?patientId=${patient.id}`}><Icon name="plus" size={19} />Nueva evolución</Link>}
+        <div className={styles.patientActions}>
+          {canEdit && <Link className={styles.editEvolution} to={`/evolutions/${evolution.id}/edit`}><Icon name="edit" size={18} />Editar evolución</Link>}
+          {user.role === "professional" && <Link className={styles.newEvolution} to={`/evolutions/new?patientId=${patient.id}`}><Icon name="plus" size={19} />Nueva evolución</Link>}
+        </div>
       </header>
 
       <nav className={styles.tabs} aria-label="Contexto del perfil del paciente">
         <Link to={`/patients/${patient.id}`}>Resumen</Link><Link to={`/patients/${patient.id}#datos-personales`}>Datos personales</Link><span aria-current="page">Historia clínica</span><Link to={`/patients/${patient.id}#archivos`}>Multimedia</Link>{user.role === "admin" && <Link to={`/patients/${patient.id}#administracion`}>Información administrativa</Link>}
       </nav>
 
+      {showUpdatedMessage && <div className={styles.successNotice} role="status" aria-live="polite"><Icon name="check" size={21} /><span>La evolución clínica se actualizó correctamente.</span></div>}
       {readOnlyMessage && <div className={styles.notice} role="status"><Icon name="shield" size={21} /><span>{readOnlyMessage}</span></div>}
 
       <div className={styles.columns}>
@@ -187,7 +201,7 @@ export function EvolutionDetailPage() {
         {previous ? <Link to={`/evolutions/${previous.id}`}><small>‹ Anterior</small><strong>{evolutionLabel(previous)}</strong></Link> : <span />}
         {next ? <Link to={`/evolutions/${next.id}`}><small>Siguiente ›</small><strong>{evolutionLabel(next)}</strong></Link> : <span />}
       </nav>
-      <div className={styles.mobileActions}>{user.role === "professional" && <Link className={styles.newEvolution} to={`/evolutions/new?patientId=${patient.id}`}><Icon name="plus" size={18} />Nueva evolución</Link>}<Link className={styles.mobileBack} to={profileTarget}>Volver a la historia clínica</Link></div>
+      <div className={styles.mobileActions}>{canEdit && <Link className={styles.editEvolution} to={`/evolutions/${evolution.id}/edit`}><Icon name="edit" size={18} />Editar evolución</Link>}{user.role === "professional" && <Link className={styles.newEvolution} to={`/evolutions/new?patientId=${patient.id}`}><Icon name="plus" size={18} />Nueva evolución</Link>}<Link className={styles.mobileBack} to={profileTarget}>Volver a la historia clínica</Link></div>
     </main>
   );
 }
