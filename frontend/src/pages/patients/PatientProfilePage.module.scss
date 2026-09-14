@@ -113,3 +113,4 @@ a.file:hover { border-color: #8da7ed; background: #edf3ff; }
   .state > div { width: 100%; flex-direction: column; }
   .state a, .state button { justify-content: center; }
 }
+.successMessage { margin: 0 0 20px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; border: 1px solid #9bc8ad; border-radius: 10px; color: #17613a; background: #eefaf3; font-weight: 650; }

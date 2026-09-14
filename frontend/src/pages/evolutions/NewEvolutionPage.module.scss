@@ -1,0 +1,68 @@
+.page { max-width: 1080px; margin: 0 auto; padding: 48px 52px 80px; color: #142454; }
+.breadcrumb { margin-bottom: 28px; display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; }
+.breadcrumb a:hover, .back:hover { text-decoration: underline; }
+.back { width: fit-content; min-height: 44px; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 7px; color: #12349a; font-weight: 650; }
+.heading { margin-bottom: 28px; }
+.heading h1 { margin: 0; color: #172233; font-size: clamp(34px, 3vw, 42px); line-height: 1.12; }
+.heading p { margin: 10px 0 8px; color: #5e6878; font-size: 17px; line-height: 1.5; }
+.heading span { color: #5e6878; font-size: 14px; }
+.heading strong, .field label > span { color: #b42318; }
+.card { margin-bottom: 22px; overflow: hidden; border: 1px solid #d9dfe9; border-radius: 14px; background: #fff; box-shadow: 0 2px 7px rgba(20, 36, 84, .05); }
+.card > h2 { margin: 0; padding: 19px 24px; border-bottom: 1px solid #e2e6ed; color: #172233; font-size: 19px; }
+.cardBody { padding: 24px; }
+.field { min-width: 0; display: flex; flex-direction: column; }
+.field label { margin-bottom: 8px; color: #26344b; font-size: 15px; font-weight: 650; }
+.field label small { color: #6d7685; font-weight: 500; }
+.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid #bfc7d5; border-radius: 9px; color: #172233; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.field textarea { min-height: 230px; line-height: 1.55; resize: vertical; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #7f8ca2; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: #2856c7; outline: 0; box-shadow: 0 0 0 3px rgba(40, 86, 199, .18); }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #b42318; }
+.fieldError { margin-top: 6px; color: #9d2828; font-size: 13px; font-weight: 600; }
+.hint { margin: -3px 0 9px; color: #687386; font-size: 13px; line-height: 1.45; }
+.twoColumns { margin-bottom: 24px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 22px; }
+.patientCard { margin-top: 18px; padding: 16px; display: flex; align-items: center; gap: 13px; border: 1px solid #d5dfef; border-radius: 11px; background: #f7f9fc; }
+.patientCard:first-child { margin-top: 0; }
+.avatar { width: 46px; height: 46px; flex: 0 0 46px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: #2856c7; font-weight: 750; }
+.patientCard div { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.patientCard strong { color: #172233; font-size: 16px; }
+.patientCard div span { color: #657083; font-size: 13px; }
+.locked { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: #36518d; font-size: 13px; font-weight: 650; }
+.contextGrid { margin: 22px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.contextGrid div { min-width: 0; padding-top: 16px; border-top: 1px solid #e5e9f0; }
+.contextGrid dt { margin-bottom: 5px; color: #6b7586; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .035em; }
+.contextGrid dd { margin: 0; color: #26344b; font-size: 14px; line-height: 1.45; }
+.notice { margin: 2px 0 28px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px; border: 1px solid #b9c9ee; border-radius: 11px; color: #263d79; background: #eef3ff; }
+.notice svg { flex: 0 0 auto; margin-top: 2px; }
+.notice p { margin: 0; font-size: 14px; line-height: 1.5; }
+.notice strong { display: block; margin-bottom: 2px; }
+.formError { margin-bottom: 20px; padding: 14px 16px; border: 1px solid #e5b4b4; border-radius: 10px; color: #922d2d; background: #fff2f2; }
+.actions { display: flex; justify-content: flex-end; gap: 12px; }
+.cancel, .submit, .state a, .state button { min-height: 48px; padding: 0 22px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; cursor: pointer; }
+.cancel { border: 1px solid #aeb8c9; color: #142454; background: #fff; }
+.submit, .state button, .state a { border: 1px solid #12349a; color: #fff; background: #12349a; }
+.submit:hover:not(:disabled), .state button:hover, .state a:hover { background: #0c287e; }
+.submit:disabled { opacity: .65; cursor: wait; }
+.state { max-width: 660px; margin: 70px auto; padding: 34px; text-align: center; border: 1px solid #d9dfe9; border-radius: 14px; background: #fff; }
+.state svg { color: #2856c7; }
+.state h1 { margin: 12px 0 8px; color: #172233; font-size: 28px; }
+.state p { margin: 0 0 22px; color: #5e6878; line-height: 1.55; }
+.state button { margin: 0 auto; }
+.cancel:focus-visible, .submit:focus-visible, .back:focus-visible, .breadcrumb a:focus-visible, .state a:focus-visible, .state button:focus-visible { outline: 3px solid rgba(40, 86, 199, .25); outline-offset: 3px; }
+@media (max-width: 1100px) { .page { padding: 38px 30px 70px; } }
+@media (max-width: 900px) { .page { padding: 28px 22px 108px; } .breadcrumb { display: none; } }
+@media (max-width: 700px) {
+  .page { padding: 24px 16px 118px; }
+  .heading h1 { font-size: 30px; }
+  .heading p { font-size: 16px; }
+  .card > h2 { padding: 17px 18px; font-size: 18px; }
+  .cardBody { padding: 19px 18px 21px; }
+  .twoColumns, .contextGrid { grid-template-columns: 1fr; gap: 18px; }
+  .contextGrid div { padding-top: 13px; }
+  .patientCard { align-items: flex-start; flex-wrap: wrap; }
+  .locked { width: 100%; margin-left: 59px; }
+  .field textarea { min-height: 260px; }
+  .actions { flex-direction: column-reverse; }
+  .cancel, .submit { width: 100%; }
+  .state { margin: 30px auto; padding: 28px 20px; }
+}

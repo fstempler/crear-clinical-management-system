@@ -7,6 +7,8 @@ import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { PatientsPage } from "./pages/patients/PatientsPage";
 import { NewPatientPage } from "./pages/patients/NewPatientPage";
 import { PatientProfilePage } from "./pages/patients/PatientProfilePage";
+import { NewEvolutionPage } from "./pages/evolutions/NewEvolutionPage";
+import { EvolutionDetailPage } from "./pages/evolutions/EvolutionDetailPage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 
 function App() {
@@ -51,7 +53,7 @@ function App() {
           <Route element={<RoleRoute allowedRoles={["professional"]} />}>
             <Route
               path="evolutions/new"
-              element={<PlaceholderPage title="Nueva evolución" />}
+              element={<NewEvolutionPage />}
             />
           </Route>
 
@@ -60,7 +62,7 @@ function App() {
           >
             <Route
               path="evolutions/:evolutionId"
-              element={<PlaceholderPage title="Detalle de evolución" />}
+              element={<EvolutionDetailPage />}
             />
           </Route>
 

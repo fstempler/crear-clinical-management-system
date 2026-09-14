@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { Icon } from "../../components/common/Icon";
 import { SectionState } from "../../components/dashboard/SectionState";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,7 +13,13 @@ import {
 } from "../../utils/presentation";
 import styles from "./PatientProfilePage.module.scss";
 
-const genderLabels = { female: "Femenino", male: "Masculino", other: "Otro", unspecified: "Sin especificar" };
+const genderLabels = {
+  female: "Femenino",
+  male: "Masculino",
+  other: "Otro",
+  unspecified: "Sin especificar",
+  not_specified: "Sin especificar",
+};
 
 function Value({ children }) {
   return children || <span className={styles.muted}>Sin información registrada</span>;
@@ -48,9 +54,17 @@ function evolutionText(item) {
   return item.summary || item.evolution || item.content || item.notes || "Sin contenido registrado.";
 }
 
-function authorName(item) {
+function authorName(item, assignments) {
   const author = item.expand?.author;
-  const name = [author?.first_name, author?.last_name].filter(Boolean).join(" ");
+  const professional = assignments
+    .map(professionalRecord)
+    .find((record) =>
+      record?.staff_user === item.author ||
+      record?.expand?.staff_user?.id === item.author
+    );
+  const name = [professional?.first_name, professional?.last_name]
+    .filter(Boolean)
+    .join(" ");
   return name || author?.name || "Profesional";
 }
 
@@ -72,6 +86,7 @@ function safePlainText(value) {
 
 export function PatientProfilePage() {
   const { patientId } = useParams();
+  const location = useLocation();
   const { user } = useAuth();
   const profile = usePatientProfile(patientId);
   const isAdmin = user.role === "admin";
@@ -105,6 +120,12 @@ export function PatientProfilePage() {
 
   return (
     <main className={styles.page}>
+      {location.state?.evolutionCreated && (
+        <div className={styles.successMessage} role="status" aria-live="polite">
+          <Icon name="check" size={21} />
+          La evolución clínica fue registrada correctamente.
+        </div>
+      )}
       <nav className={styles.breadcrumb} aria-label="Migas de pan">
         <span>{isAdmin ? "Portal Administrativo" : "Portal Médico"}</span><Icon name="chevron" size={16} />
         <Link to="/patients">Pacientes</Link><Icon name="chevron" size={16} /><strong>{name}</strong>
@@ -126,7 +147,7 @@ export function PatientProfilePage() {
           {isAdmin ? (
             <span className={styles.disabledButton} aria-disabled="true" title="Edición disponible en una próxima etapa"><Icon name="edit" size={18} />Editar datos</span>
           ) : (
-            <Link className={styles.primaryButton} to={`/evolutions/new?patientId=${patient.id}`} state={{ patientId: patient.id }}><Icon name="plus" size={18} />Nueva evolución</Link>
+            <Link className={styles.primaryButton} to={`/evolutions/new?patientId=${patient.id}`}><Icon name="plus" size={18} />Nueva evolución</Link>
           )}
         </div>
       </header>
@@ -156,7 +177,7 @@ export function PatientProfilePage() {
               <div className={styles.evolutionList} id="evoluciones">
                 {evolutions.map((item) => (
                   <Link to={`/evolutions/${item.id}`} className={styles.evolution} key={item.id}>
-                    <div><strong>{authorName(item)}</strong><time>{formatDateTime(item.evolution_date || item.created)}</time></div>
+                    <div><strong>{authorName(item, professionals)}</strong><time>{formatDateTime(item.evolution_date || item.created)}</time></div>
                     <p>{evolutionText(item)}</p><span>Ver detalle <Icon name="chevron" size={17} /></span>
                   </Link>
                 ))}
