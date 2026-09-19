@@ -4,6 +4,32 @@ export const PROFESSIONALS_PER_PAGE = 10;
 
 const BASE_FILTER = "staff_user.role = {:professionalRole}";
 
+export function getProfessionalDetail(professionalId) {
+  return pb.collection("professionals").getOne(professionalId, {
+    expand: "staff_user",
+    requestKey: null,
+  });
+}
+
+export async function getProfessionalAssignments(professionalId) {
+  const records = await pb.collection("patient_professionals").getFullList({
+    filter: pb.filter(
+      "professional = {:professionalId} && active = {:active}",
+      { professionalId, active: true },
+    ),
+    expand: "patient",
+    sort: "patient.last_name,patient.first_name",
+    requestKey: null,
+  });
+
+  return records
+    .filter((assignment) => assignment.expand?.patient)
+    .map((assignment) => ({
+      assignment,
+      patient: assignment.expand.patient,
+    }));
+}
+
 function buildFilter({ search, profession, specialty, status } = {}) {
   const filters = [BASE_FILTER];
   const params = { professionalRole: "professional" };

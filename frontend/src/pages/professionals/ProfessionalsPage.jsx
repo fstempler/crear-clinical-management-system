@@ -44,7 +44,7 @@ function Avatar({ professional }) {
   return <span className={styles.avatar} aria-hidden="true">{getInitials(professional.first_name, professional.last_name, "PR")}</span>;
 }
 
-function ProfessionalsResults({ result, onPageChange }) {
+function ProfessionalsResults({ result, onPageChange, returnPath }) {
   return (
     <section className={styles.results} aria-label="Resultados de profesionales">
       <div className={styles.desktopTable}>
@@ -53,13 +53,13 @@ function ProfessionalsResults({ result, onPageChange }) {
           <tbody>
             {result.items.map((professional) => (
               <tr key={professional.id}>
-                <td><div className={styles.identity}><Avatar professional={professional} /><div><strong>{getFullName(professional)}</strong><span>Documento {professional.document_number || "no informado"}</span></div></div></td>
+                <td><div className={styles.identity}><Avatar professional={professional} /><div><Link className={styles.nameLink} to={`/professionals/${professional.id}`} state={{ returnPath }}>{getFullName(professional)}</Link><span>Documento {professional.document_number || "no informado"}</span></div></div></td>
                 <td>{professional.profession || "Sin profesión informada"}</td>
                 <td>{professional.specialty || "Sin especialidad informada"}</td>
                 <td>{professional.license_number || "No informada"}</td>
                 <td><div className={styles.contact}><span>{email(professional)}</span><span>{professional.phone || "Sin teléfono informado"}</span></div></td>
                 <td><Status professional={professional} /></td>
-                <td>{lastLogin(professional)}</td>
+                <td><div className={styles.lastAccess}><span>{lastLogin(professional)}</span><Link className={styles.profileLink} to={`/professionals/${professional.id}`} state={{ returnPath }} aria-label={`Ver perfil de ${getFullName(professional)}`}>Ver perfil<Icon name="chevron" size={16} /></Link></div></td>
               </tr>
             ))}
           </tbody>
@@ -68,7 +68,7 @@ function ProfessionalsResults({ result, onPageChange }) {
       <div className={styles.mobileCards}>
         {result.items.map((professional) => (
           <article className={styles.card} key={professional.id}>
-            <header><Avatar professional={professional} /><div><h2>{getFullName(professional)}</h2><p>{professional.profession || "Sin profesión informada"}</p></div><Status professional={professional} /></header>
+            <header><Avatar professional={professional} /><div><h2><Link className={styles.nameLink} to={`/professionals/${professional.id}`} state={{ returnPath }}>{getFullName(professional)}</Link></h2><p>{professional.profession || "Sin profesión informada"}</p></div><Status professional={professional} /></header>
             <dl>
               <div><dt>Especialidad</dt><dd>{professional.specialty || "Sin especialidad informada"}</dd></div>
               <div><dt>Matrícula</dt><dd>{professional.license_number || "No informada"}</dd></div>
@@ -77,6 +77,7 @@ function ProfessionalsResults({ result, onPageChange }) {
               <div><dt>Documento</dt><dd>{professional.document_number || "No informado"}</dd></div>
               <div><dt>Último acceso</dt><dd>{lastLogin(professional)}</dd></div>
             </dl>
+            <Link className={styles.mobileProfileLink} to={`/professionals/${professional.id}`} state={{ returnPath }} aria-label={`Ver perfil de ${getFullName(professional)}`}>Ver perfil<Icon name="chevron" size={17} /></Link>
           </article>
         ))}
       </div>
@@ -95,6 +96,7 @@ export function ProfessionalsPage() {
   const specialty = searchParams.get("specialty")?.trim() || "";
   const page = readPage(searchParams.get("page"));
   const professionals = useProfessionals({ page, search: querySearch, profession, specialty, status });
+  const returnPath = `/professionals${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
   const hasFilters = Boolean(querySearch || profession || specialty || status);
 
   const updateParams = (updates) => {
@@ -163,7 +165,7 @@ export function ProfessionalsPage() {
         {!professionals.isLoading && !professionals.error && professionals.data.totalItems === 0 && (
           <div className={styles.empty} role="status"><Icon name={hasFilters ? "search" : "professional"} size={36} /><h2>{hasFilters ? "No encontramos profesionales con la búsqueda o los filtros seleccionados." : "Todavía no hay profesionales registrados."}</h2>{hasFilters && <button type="button" onClick={clearFilters}>Limpiar búsqueda y filtros</button>}</div>
         )}
-        {!professionals.isLoading && !professionals.error && professionals.data.totalItems > 0 && <ProfessionalsResults result={professionals.data} onPageChange={(nextPage) => updateParams({ page: nextPage })} />}
+        {!professionals.isLoading && !professionals.error && professionals.data.totalItems > 0 && <ProfessionalsResults result={professionals.data} returnPath={returnPath} onPageChange={(nextPage) => updateParams({ page: nextPage })} />}
       </div>
     </main>
   );

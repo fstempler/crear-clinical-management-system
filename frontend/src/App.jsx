@@ -14,6 +14,7 @@ import { NewEvolutionPage } from "./pages/evolutions/NewEvolutionPage";
 import { EvolutionDetailPage } from "./pages/evolutions/EvolutionDetailPage";
 import { EditEvolutionPage } from "./pages/evolutions/EditEvolutionPage";
 import { ProfessionalsPage } from "./pages/professionals/ProfessionalsPage";
+import { ProfessionalProfilePage } from "./pages/professionals/ProfessionalProfilePage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 
 function App() {
@@ -67,6 +68,11 @@ function App() {
             <Route
               path="professionals"
               element={<ProfessionalsPage />}
+            />
+
+            <Route
+              path="professionals/:professionalId"
+              element={<ProfessionalProfilePage />}
             />
           </Route>
 

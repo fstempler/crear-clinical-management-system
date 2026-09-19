@@ -68,3 +68,11 @@
   .card dd { margin: 0; color: #172233; font-weight: 550; text-align: right; overflow-wrap: anywhere; }
 }
 @media (max-width: 430px) { .card header { grid-template-columns: 48px minmax(0, 1fr); } .card header .status { grid-column: 2; justify-self: start; } }
+.nameLink { color: #172233; font-weight: 750; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
+.nameLink:hover { color: #12349a; text-decoration-color: currentColor; }
+.lastAccess { display: grid; gap: 7px; }
+.profileLink, .mobileProfileLink { min-height: 44px; display: inline-flex; align-items: center; gap: 4px; color: #12349a; font-weight: 700; }
+.profileLink { width: fit-content; }
+.profileLink:hover, .mobileProfileLink:hover { text-decoration: underline; }
+.mobileProfileLink { margin-top: 15px; border-top: 1px solid #dde3ec; justify-content: flex-end; }
+.page :is(.nameLink, .profileLink, .mobileProfileLink):focus-visible { outline: 3px solid rgba(40, 86, 199, .3); outline-offset: 2px; border-radius: 4px; }
