@@ -13,6 +13,7 @@ import { PatientAdministrationPage } from "./pages/patients/PatientAdministratio
 import { NewEvolutionPage } from "./pages/evolutions/NewEvolutionPage";
 import { EvolutionDetailPage } from "./pages/evolutions/EvolutionDetailPage";
 import { EditEvolutionPage } from "./pages/evolutions/EditEvolutionPage";
+import { ProfessionalsPage } from "./pages/professionals/ProfessionalsPage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 
 function App() {
@@ -65,9 +66,7 @@ function App() {
 
             <Route
               path="professionals"
-              element={
-                <PlaceholderPage title="Profesionales" />
-              }
+              element={<ProfessionalsPage />}
             />
           </Route>
 

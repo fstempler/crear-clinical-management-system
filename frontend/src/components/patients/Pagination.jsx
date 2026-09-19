@@ -6,7 +6,15 @@ function visiblePages(current, total) {
   return [...candidates].filter((page) => page >= 1 && page <= total).sort((a, b) => a - b);
 }
 
-export function Pagination({ page, totalPages, totalItems, perPage, onChange }) {
+export function Pagination({
+  page,
+  totalPages,
+  totalItems,
+  perPage,
+  onChange,
+  itemLabel = "pacientes",
+  ariaLabel = "Paginación de pacientes",
+}) {
   if (!totalItems) return null;
   const first = (page - 1) * perPage + 1;
   const last = Math.min(page * perPage, totalItems);
@@ -15,9 +23,9 @@ export function Pagination({ page, totalPages, totalItems, perPage, onChange }) 
   return (
     <div className={styles.footer}>
       <p>
-        Mostrando <strong>{first} a {last}</strong> de <strong>{totalItems}</strong> pacientes
+        Mostrando <strong>{first} a {last}</strong> de <strong>{totalItems}</strong> {itemLabel}
       </p>
-      <nav className={styles.pagination} aria-label="Paginación de pacientes">
+      <nav className={styles.pagination} aria-label={ariaLabel}>
         <button type="button" disabled={page <= 1} onClick={() => onChange(page - 1)}>
           <Icon className={styles.previousIcon} name="chevron" size={18} />
           Anterior
