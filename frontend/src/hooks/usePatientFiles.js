@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
-import { getAssignedPatient } from "../services/evolutionsService";
 import { getPatientProfile } from "../services/patientsService";
-import { getPatientFileEvolutions, getPatientFilesPage, getProtectedFileToken } from "../services/patientFilesService";
+import { getAssignedPatientForStaff, getPatientFileEvolutions, getPatientFilesPage, getProtectedFileToken } from "../services/patientFilesService";
 
 const emptyPage = { items: [], page: 1, totalItems: 0, totalPages: 0 };
 
-export function usePatientFiles({ patientId, user, professionalId, enabled }) {
+export function usePatientFiles({ patientId, user }) {
   const [params, setParams] = useSearchParams();
   const [searchInput, setSearchInput] = useState(params.get("q") || "");
   const [state, setState] = useState({ patient: null, evolutions: [], page: emptyPage, token: "", loading: true, loadingMore: false, error: null, tokenError: null });
@@ -29,13 +28,12 @@ export function usePatientFiles({ patientId, user, professionalId, enabled }) {
   }, [params, searchInput, setParams]);
 
   const load = useCallback(async () => {
-    if (!enabled) return;
     const current = ++requestId.current;
     setState((old) => ({ ...old, loading: true, error: null, tokenError: null }));
     try {
       let patient;
       if (user.role === "professional") {
-        patient = await getAssignedPatient(professionalId, patientId);
+        patient = await getAssignedPatientForStaff(user.id, patientId);
         if (!patient) { const error = new Error("Acceso denegado"); error.status = 404; throw error; }
       } else patient = await getPatientProfile(patientId);
       const [pages, evolutions, tokenResult] = await Promise.all([
@@ -50,7 +48,7 @@ export function usePatientFiles({ patientId, user, professionalId, enabled }) {
     } catch (error) {
       if (current === requestId.current) setState((old) => ({ ...old, loading: false, loadingMore: false, error }));
     }
-  }, [enabled, filters, patientId, professionalId, user.role]);
+  }, [filters, patientId, user.id, user.role]);
 
   useEffect(() => { load(); return () => { requestId.current += 1; }; }, [load]);
 

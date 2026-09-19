@@ -51,6 +51,22 @@ export function getPatientFileEvolutions(patientId) {
   }).then((result) => result.items);
 }
 
+export function getAssignedPatientForStaff(staffUserId, patientId) {
+  return pb
+    .collection("patient_professionals")
+    .getFirstListItem(
+      pb.filter(
+        "professional.staff_user = {:staffUserId} && patient = {:patientId} && active = true",
+        { staffUserId, patientId },
+      ),
+      {
+        expand: "patient",
+        requestKey: null,
+      },
+    )
+    .then((assignment) => assignment.expand?.patient || null);
+}
+
 export function createPatientFile({ evolution, user, file, category, description }) {
   const form = new FormData();
   form.set("patient", evolution.patient);

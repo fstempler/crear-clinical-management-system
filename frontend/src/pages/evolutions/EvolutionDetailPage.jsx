@@ -220,6 +220,9 @@ export function EvolutionDetailPage() {
   const [showUpdatedMessage] = useState(
     Boolean(location.state?.evolutionUpdated),
   );
+  const [showCreatedMessage] = useState(
+    Boolean(location.state?.evolutionCreated),
+  );
 
   const [assignmentState, setAssignmentState] = useState({
     isLoading: user.role === "professional",
@@ -231,7 +234,10 @@ export function EvolutionDetailPage() {
   const [uploadForm, setUploadForm] = useState({ file: null, category: "", description: "", error: "" });
 
   useEffect(() => {
-    if (location.state?.evolutionUpdated) {
+    if (
+      location.state?.evolutionUpdated ||
+      location.state?.evolutionCreated
+    ) {
       navigate(location.pathname, {
         replace: true,
         state: location.state?.historyPath
@@ -492,6 +498,17 @@ export function EvolutionDetailPage() {
         </div>
       )}
 
+      {showCreatedMessage && (
+        <div className={styles.successNotice} role="status" aria-live="polite">
+          <Icon name="check" size={21} />
+
+          <span>
+            La evolución clínica fue registrada correctamente. Ya podés
+            adjuntar archivos en la sección Archivos adjuntos.
+          </span>
+        </div>
+      )}
+
       {readOnlyMessage && (
         <div className={styles.notice} role="status">
           <Icon name="shield" size={21} />
@@ -544,7 +561,11 @@ export function EvolutionDetailPage() {
             </div>
           </section>
 
-          <section className={styles.card} aria-labelledby="attachments-title">
+          <section
+            className={styles.card}
+            id="archivos-adjuntos"
+            aria-labelledby="attachments-title"
+          >
             <h2 className={styles.cardTitle} id="attachments-title"><Icon name="folder" size={22} />Archivos adjuntos <small>{evolutionFiles.files.length}</small></h2>
             {canEdit && <form className={styles.uploadForm} onSubmit={async (event) => {
               event.preventDefault();

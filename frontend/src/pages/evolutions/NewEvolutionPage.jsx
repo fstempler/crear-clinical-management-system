@@ -101,14 +101,20 @@ export function NewEvolutionPage() {
     setIsSaving(true);
     setSubmitError("");
     try {
-      await data.createEvolution({
+      const evolution = await data.createEvolution({
         patient: effectivePatientId,
         author: user.id,
         evolution_type: form.type,
         title: form.title.trim(),
         content: form.content.trim(),
       });
-      navigate(`/patients/${effectivePatientId}`, { replace: true, state: { evolutionCreated: true } });
+      navigate(`/evolutions/${evolution.id}`, {
+        replace: true,
+        state: {
+          evolutionCreated: true,
+          historyPath: `/patients/${effectivePatientId}/history`,
+        },
+      });
     } catch (error) {
       setSubmitError(getEvolutionErrorMessage(error));
       setIsSaving(false);
