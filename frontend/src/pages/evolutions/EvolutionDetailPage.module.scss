@@ -56,6 +56,15 @@
 .attachments { min-height: 145px; display: grid; place-content: center; justify-items: center; gap: 10px; color: #6c7584; background: #fbfcff; }
 .attachments svg { padding: 10px; box-sizing: content-box; border-radius: 50%; background: #e9f0ff; }
 .attachments p { margin: 0; color: #414958; font-size: 14px; }
+.uploadForm { padding: 18px 20px; border-bottom: 1px solid #dde3ec; display: grid; grid-template-columns: minmax(220px, 1fr) 180px; gap: 13px; background: #f8faff; }
+.uploadForm h3 { grid-column: 1 / -1; margin: 0; font-size: 16px; }
+.uploadForm label { display: grid; gap: 6px; color: #596476; font-size: 12px; font-weight: 700; }
+.uploadForm :is(input, select, textarea) { min-height: 44px; padding: 9px 11px; border: 1px solid #bfc7d5; border-radius: 8px; background: #fff; font: inherit; }
+.descriptionField { grid-column: 1 / -1; }.descriptionField textarea { min-height: 75px; resize: vertical; }
+.uploadForm > button { width: fit-content; min-height: 44px; padding: 0 16px; border: 0; border-radius: 8px; color: #fff; background: #12349a; font-weight: 700; cursor: pointer; }
+.uploadForm > button:disabled { opacity: .65; cursor: wait; }.formError { margin: 12px 20px; color: #9d2828; font-size: 13px; }.fileMessage { margin: 12px 20px; color: #126044; font-weight: 700; }
+.fileList { margin: 0; padding: 0; list-style: none; }.fileList li { padding: 14px 18px; border-bottom: 1px solid #e0e5ed; display: flex; align-items: flex-start; gap: 12px; }.fileList li:last-child { border-bottom: 0; }.fileList li > svg { flex: 0 0 auto; color: #12349a; }.fileList li > div:nth-child(2) { min-width: 0; flex: 1; }.fileList strong,.fileList small { display: block; overflow-wrap: anywhere; }.fileList small { margin-top: 3px; color: #687386; }.fileList p { margin: 7px 0 0; font-size: 13px; }.fileList li > div:last-child { display: flex; gap: 7px; }.fileList a,.fileList button { min-height: 40px; padding: 0 11px; border: 1px solid #bfc7d5; border-radius: 7px; display: inline-flex; align-items: center; color: #12349a; background: #fff; font-weight: 700; cursor: pointer; }
+@media(max-width:700px){.uploadForm{grid-template-columns:1fr}.descriptionField,.uploadForm h3{grid-column:auto}.fileList li{flex-wrap:wrap}.fileList li>div:last-child{width:100%}}
 .nearbyCard > div { display: grid; }
 .nearbyItem { min-height: 66px; padding: 12px 15px; border-bottom: 1px solid #e0e5ed; display: flex; align-items: center; gap: 11px; }
 .nearbyItem:last-child { border-bottom: 0; }

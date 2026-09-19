@@ -10,6 +10,8 @@ import { Icon } from "../../components/common/Icon";
 import { SectionState } from "../../components/dashboard/SectionState";
 import { useAuth } from "../../hooks/useAuth";
 import { useEvolutionDetail } from "../../hooks/useEvolutionDetail";
+import { useEvolutionFiles } from "../../hooks/useEvolutionFiles";
+import { fileCategories, fileCategoryLabels, getProtectedFileUrl, inferFileCategory, validateClinicalFile } from "../../services/patientFilesService";
 import {
   getAssignedPatient,
   isEvolutionEditable,
@@ -225,6 +227,8 @@ export function EvolutionDetailPage() {
   });
 
   const detail = useEvolutionDetail(evolutionId);
+  const evolutionFiles = useEvolutionFiles(evolutionId);
+  const [uploadForm, setUploadForm] = useState({ file: null, category: "", description: "", error: "" });
 
   useEffect(() => {
     if (location.state?.evolutionUpdated) {
@@ -471,7 +475,7 @@ export function EvolutionDetailPage() {
           Historia clínica
         </Link>
 
-        <Link to={`/patients/${patient.id}#archivos`}>Multimedia</Link>
+        <Link to={`/patients/${patient.id}/files`}>Multimedia</Link>
 
         {user.role === "admin" && (
           <Link to={`/patients/${patient.id}#administracion`}>
@@ -538,6 +542,27 @@ export function EvolutionDetailPage() {
             <div className={styles.recordBody}>
               <ClinicalContent content={evolution.content} />
             </div>
+          </section>
+
+          <section className={styles.card} aria-labelledby="attachments-title">
+            <h2 className={styles.cardTitle} id="attachments-title"><Icon name="folder" size={22} />Archivos adjuntos <small>{evolutionFiles.files.length}</small></h2>
+            {canEdit && <form className={styles.uploadForm} onSubmit={async (event) => {
+              event.preventDefault();
+              const error = validateClinicalFile(uploadForm.file);
+              if (error) { setUploadForm((old) => ({ ...old, error })); return; }
+              const ok = await evolutionFiles.upload({ evolution, user, file: uploadForm.file, category: uploadForm.category || inferFileCategory(uploadForm.file.type), description: uploadForm.description });
+              if (ok) { event.currentTarget.reset(); setUploadForm({ file: null, category: "", description: "", error: "" }); }
+            }}>
+              <h3>Adjuntar archivo</h3>
+              <label>Archivo<input type="file" required accept="image/jpeg,image/png,image/webp,image/heic,application/pdf,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,video/mp4,video/quicktime,video/webm" onChange={(event) => { const file = event.target.files?.[0] || null; setUploadForm((old) => ({ ...old, file, category: file ? inferFileCategory(file.type) : "", error: "" })); }} aria-invalid={Boolean(uploadForm.error)} /></label>
+              <label>Categoría<select required value={uploadForm.category} onChange={(event) => setUploadForm((old) => ({ ...old, category: event.target.value }))}><option value="">Seleccionar</option>{fileCategories.map((category) => <option value={category} key={category}>{fileCategoryLabels[category]}</option>)}</select></label>
+              <label className={styles.descriptionField}>Descripción<textarea value={uploadForm.description} onChange={(event) => setUploadForm((old) => ({ ...old, description: event.target.value }))} /></label>
+              {uploadForm.error && <p className={styles.formError} role="alert">{uploadForm.error}</p>}
+              <button type="submit" disabled={evolutionFiles.uploading}>{evolutionFiles.uploading ? "Subiendo…" : "Adjuntar archivo"}</button>
+            </form>}
+            {evolutionFiles.message && <p className={styles.fileMessage} role="status">{evolutionFiles.message}</p>}
+            {evolutionFiles.error && <p className={styles.formError} role="alert">No pudimos completar la operación. Conservamos la pantalla para que intentes nuevamente. <button type="button" onClick={evolutionFiles.clearError}>Cerrar</button></p>}
+            {evolutionFiles.loading ? <SectionState type="loading" message="Cargando archivos adjuntos…" /> : !evolutionFiles.files.length ? <div className={styles.attachments}><Icon name="folder" size={27} /><p>Sin archivos adjuntos</p></div> : <ul className={styles.fileList}>{evolutionFiles.files.map((record) => { const url = getProtectedFileUrl(record, evolutionFiles.token); const manageable = canEdit && record.uploaded_by === user.id; return <li key={record.id}><Icon name={record.category === "image" ? "image" : "file"} size={23} /><div><strong>{record.file}</strong><small>{fileCategoryLabels[record.category] || "Archivo"} · {formatDateTime(record.created)}</small>{record.description && <p>{record.description}</p>}</div><div>{url && <a href={url} target="_blank" rel="noreferrer">Ver</a>}{manageable && <button type="button" disabled={evolutionFiles.deletingId === record.id} onClick={() => { if (window.confirm(`¿Eliminar el archivo “${record.file}”? Esta acción lo quitará de la historia clínica.`)) evolutionFiles.remove(record); }}>{evolutionFiles.deletingId === record.id ? "Eliminando…" : "Eliminar"}</button>}</div></li>; })}</ul>}
           </section>
         </div>
 

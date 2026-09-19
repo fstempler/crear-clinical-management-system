@@ -7,7 +7,6 @@ import { Icon } from "../../components/common/Icon";
 import { SectionState } from "../../components/dashboard/SectionState";
 import { useAuth } from "../../hooks/useAuth";
 import { usePatientProfile } from "../../hooks/usePatientProfile";
-import { getPatientFileUrl } from "../../services/patientsService";
 import {
   calculateAge,
   formatDate,
@@ -374,7 +373,7 @@ export function PatientProfilePage() {
           Historia clínica
         </Link>
 
-        <a href="#archivos">Multimedia</a>
+        <Link to={`/patients/${patient.id}/files`}>Multimedia</Link>
 
         {isAdmin && (
           <a href="#administracion">
@@ -606,28 +605,9 @@ export function PatientProfilePage() {
                 id="archivos"
               >
                 {files.map((record) => {
-                  const url = getPatientFileUrl(
-                    record,
-                    isImage(record)
-                      ? { thumb: "300x180" }
-                      : undefined,
-                  );
-
                   const content = (
                     <>
-                      {isImage(record) ? (
-                        <img
-                          src={url}
-                          alt={`Vista previa de ${fileMeta(
-                            record,
-                          )}`}
-                        />
-                      ) : (
-                        <Icon
-                          name="file"
-                          size={25}
-                        />
-                      )}
+                      <Icon name={isImage(record) ? "image" : "file"} size={25} />
 
                       <div>
                         <strong>
@@ -641,27 +621,14 @@ export function PatientProfilePage() {
                     </>
                   );
 
-                  return url ? (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.file}
-                      key={record.id}
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div
-                      className={styles.file}
-                      key={record.id}
-                    >
-                      {content}
-                    </div>
-                  );
+                  return <Link to={`/patients/${patient.id}/files`} className={styles.file} key={record.id}>{content}</Link>;
                 })}
               </div>
             )}
+            <Link className={styles.historyLink} to={`/patients/${patient.id}/files`}>
+              Ver todos los archivos
+              <Icon name="chevron" size={18} />
+            </Link>
           </Card>
         </aside>
       </div>

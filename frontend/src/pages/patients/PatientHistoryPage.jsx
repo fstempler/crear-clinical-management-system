@@ -113,7 +113,7 @@ function PatientTabs({ patientId, isAdmin }) {
         Historia clínica
       </Link>
 
-      <Link to={`/patients/${patientId}#archivos`}>Multimedia</Link>
+      <Link to={`/patients/${patientId}/files`}>Multimedia</Link>
 
       {isAdmin && (
         <Link to={`/patients/${patientId}#administracion`}>
