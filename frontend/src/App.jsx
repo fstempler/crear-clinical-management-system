@@ -9,6 +9,7 @@ import { NewPatientPage } from "./pages/patients/NewPatientPage";
 import { PatientProfilePage } from "./pages/patients/PatientProfilePage";
 import { PatientHistoryPage } from "./pages/patients/PatientHistoryPage";
 import { PatientFilesPage } from "./pages/patients/PatientFilesPage";
+import { PatientAdministrationPage } from "./pages/patients/PatientAdministrationPage";
 import { NewEvolutionPage } from "./pages/evolutions/NewEvolutionPage";
 import { EvolutionDetailPage } from "./pages/evolutions/EvolutionDetailPage";
 import { EditEvolutionPage } from "./pages/evolutions/EditEvolutionPage";
@@ -55,6 +56,11 @@ function App() {
             <Route
               path="patients/new"
               element={<NewPatientPage />}
+            />
+
+            <Route
+              path="patients/:patientId/administration"
+              element={<PatientAdministrationPage />}
             />
 
             <Route

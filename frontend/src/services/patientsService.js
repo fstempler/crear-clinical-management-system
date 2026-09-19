@@ -6,20 +6,35 @@ export function normalizeDocumentNumber(value) {
   return value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
-export async function findPatientByDocumentNumber(documentNumber) {
+export async function findPatientByDocumentNumber(documentNumber, excludePatientId = "") {
   const normalizedDocument = normalizeDocumentNumber(documentNumber);
   if (!normalizedDocument) return null;
-  const patients = await pb.collection("patients").getFullList({
-    fields: "id,document_number",
-    requestKey: null,
+
+  const filters = ["document_number = {:documentNumber}"];
+  const params = { documentNumber: normalizedDocument };
+  if (excludePatientId) {
+    filters.push("id != {:excludePatientId}");
+    params.excludePatientId = excludePatientId;
+  }
+
+  return pb.collection("patients").getFirstListItem(
+    pb.filter(filters.join(" && "), params),
+    {
+      fields: "id,document_number",
+      requestKey: null,
+    },
+  ).catch((error) => {
+    if (error?.status === 404) return null;
+    throw error;
   });
-  return patients.find(
-    (patient) => normalizeDocumentNumber(patient.document_number) === normalizedDocument,
-  ) || null;
 }
 
 export async function createPatient(patient) {
   return pb.collection("patients").create(patient, { requestKey: null });
+}
+
+export async function updatePatient(patientId, patient) {
+  return pb.collection("patients").update(patientId, patient, { requestKey: null });
 }
 
 export function isDuplicateDocumentError(error) {

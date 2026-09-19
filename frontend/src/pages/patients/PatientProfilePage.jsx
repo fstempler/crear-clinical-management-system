@@ -260,6 +260,17 @@ export function PatientProfilePage() {
         </div>
       )}
 
+      {location.state?.patientUpdated && (
+        <div
+          className={styles.successMessage}
+          role="status"
+          aria-live="polite"
+        >
+          <Icon name="check" size={21} />
+          Los datos del paciente fueron actualizados correctamente.
+        </div>
+      )}
+
       <nav
         className={styles.breadcrumb}
         aria-label="Migas de pan"
@@ -335,14 +346,13 @@ export function PatientProfilePage() {
           </Link>
 
           {isAdmin ? (
-            <span
-              className={styles.disabledButton}
-              aria-disabled="true"
-              title="Edición disponible en una próxima etapa"
+            <Link
+              className={styles.primaryButton}
+              to={`/patients/${patient.id}/administration`}
             >
               <Icon name="edit" size={18} />
               Editar datos
-            </span>
+            </Link>
           ) : (
             canCreateEvolution && (
               <Link
@@ -376,9 +386,9 @@ export function PatientProfilePage() {
         <Link to={`/patients/${patient.id}/files`}>Multimedia</Link>
 
         {isAdmin && (
-          <a href="#administracion">
+          <Link to={`/patients/${patient.id}/administration`}>
             Información administrativa
-          </a>
+          </Link>
         )}
       </nav>
 
