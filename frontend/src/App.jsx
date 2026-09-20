@@ -17,6 +17,7 @@ import { ProfessionalsPage } from "./pages/professionals/ProfessionalsPage";
 import { ProfessionalProfilePage } from "./pages/professionals/ProfessionalProfilePage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 import { EditProfessionalPage } from "./pages/professionals/EditProfessionalPage";
+import { NewProfessionalPage } from "./pages/professionals/NewProfessionalPage";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
             />
 
             <Route path="professionals" element={<ProfessionalsPage />} />
+
+            <Route path="professionals/new" element={<NewProfessionalPage />} />
 
             <Route
               path="professionals/:professionalId"

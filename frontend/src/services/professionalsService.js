@@ -23,6 +23,27 @@ export function updateProfessionalAccount(staffUserId, payload) {
   });
 }
 
+export function createProfessionalAccount(payload) {
+  return pb.collection("staff_users").create(payload, { requestKey: null });
+}
+
+export function createProfessional(payload) {
+  return pb.collection("professionals").create(payload, { requestKey: null });
+}
+
+export async function findProfessionalByStaffUser(staffUserId) {
+  if (!staffUserId) return null;
+  try {
+    return await pb.collection("professionals").getFirstListItem(
+      pb.filter("staff_user = {:staffUserId}", { staffUserId }),
+      { requestKey: null },
+    );
+  } catch (error) {
+    if (error?.status === 404) return null;
+    throw error;
+  }
+}
+
 export function normalizeProfessionalDocument(documentNumber) {
   return `${documentNumber ?? ""}`.replace(/[\s.-]+/g, "").toUpperCase();
 }

@@ -93,6 +93,13 @@ export function ProfessionalProfilePage() {
           <Icon name="check" size={20} /> La información del profesional se actualizó correctamente.
         </div>
       )}
+      {location.state?.professionalCreated && (
+        <div className={styles.success} role="status" aria-live="polite">
+          <Icon name="check" size={20} /> {location.state.accountInactive
+            ? "El profesional fue creado correctamente. La cuenta permanece inactiva."
+            : "El profesional y su cuenta fueron creados correctamente."}
+        </div>
+      )}
       <nav className={styles.breadcrumb} aria-label="Migas de pan">
         <Link to="/">Portal Administrativo</Link><Icon name="chevron" size={16} />
         <Link to={returnPath}>Profesionales</Link><Icon name="chevron" size={16} />

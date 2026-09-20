@@ -137,7 +137,7 @@ export function ProfessionalsPage() {
   return (
     <main className={styles.page}>
       <nav className={styles.breadcrumb} aria-label="Migas de pan"><Link to="/">Portal Administrativo</Link><Icon name="chevron" size={16} /><span aria-current="page">Profesionales</span></nav>
-      <header className={styles.heading}><h1>Profesionales</h1><p>Consultá el equipo profesional y el estado de sus cuentas.</p></header>
+      <header className={styles.heading}><div><h1>Profesionales</h1><p>Consultá el equipo profesional y el estado de sus cuentas.</p></div><Link className={styles.newButton} to="/professionals/new"><Icon name="plus" size={19} />Nuevo profesional</Link></header>
       {!professionals.isLoading && !professionals.error && <p className={styles.count} aria-live="polite"><strong>{professionals.data.totalItems}</strong> {professionals.data.totalItems === 1 ? "profesional encontrado" : "profesionales encontrados"}</p>}
 
       <section className={styles.metrics} aria-label="Resumen de profesionales">
