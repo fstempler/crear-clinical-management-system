@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import logo from "../../assets/crear-logo.png";
@@ -14,7 +14,16 @@ export function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [confirmation] = useState(() => location.state?.confirmation || "");
   const destination = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (!location.state?.confirmation) return;
+    navigate(location.pathname, {
+      replace: true,
+      state: location.state?.from ? { from: location.state.from } : null,
+    });
+  }, [location.pathname, location.state, navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,6 +65,12 @@ export function LoginPage() {
             <h1>Iniciar sesión</h1>
             <p>Ingresá tus datos para acceder a la plataforma</p>
           </header>
+
+          {confirmation && (
+            <p className={styles.confirmation} role="status" aria-live="polite">
+              {confirmation}
+            </p>
+          )}
 
           <form className={styles.form} onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>

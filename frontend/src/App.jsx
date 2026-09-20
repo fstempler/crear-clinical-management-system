@@ -19,6 +19,7 @@ import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 import { EditProfessionalPage } from "./pages/professionals/EditProfessionalPage";
 import { NewProfessionalPage } from "./pages/professionals/NewProfessionalPage";
 import { ProfessionalAssignmentsPage } from "./pages/professionals/ProfessionalAssignmentsPage";
+import { AccountPage } from "./pages/account/AccountPage";
 
 function App() {
   return (
@@ -47,7 +48,7 @@ function App() {
 
           <Route
             path="account"
-            element={<PlaceholderPage title="Mi cuenta" />}
+            element={<AccountPage />}
           />
 
           <Route element={<RoleRoute allowedRoles={["admin"]} />}>
