@@ -18,6 +18,7 @@ import { ProfessionalProfilePage } from "./pages/professionals/ProfessionalProfi
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
 import { EditProfessionalPage } from "./pages/professionals/EditProfessionalPage";
 import { NewProfessionalPage } from "./pages/professionals/NewProfessionalPage";
+import { ProfessionalAssignmentsPage } from "./pages/professionals/ProfessionalAssignmentsPage";
 
 function App() {
   return (
@@ -69,6 +70,11 @@ function App() {
             <Route
               path="professionals/:professionalId/edit"
               element={<EditProfessionalPage />}
+            />
+
+            <Route
+              path="professionals/:professionalId/assignments"
+              element={<ProfessionalAssignmentsPage />}
             />
           </Route>
 

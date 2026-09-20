@@ -100,6 +100,11 @@ export function ProfessionalProfilePage() {
             : "El profesional y su cuenta fueron creados correctamente."}
         </div>
       )}
+      {location.state?.assignmentsUpdated && (
+        <div className={styles.success} role="status" aria-live="polite">
+          <Icon name="check" size={20} /> Las asignaciones del profesional se actualizaron correctamente.
+        </div>
+      )}
       <nav className={styles.breadcrumb} aria-label="Migas de pan">
         <Link to="/">Portal Administrativo</Link><Icon name="chevron" size={16} />
         <Link to={returnPath}>Profesionales</Link><Icon name="chevron" size={16} />
@@ -109,9 +114,14 @@ export function ProfessionalProfilePage() {
       <div className={styles.topActions}>
         <Link className={styles.back} to={returnPath}><Icon name="arrow-left" size={18} />Volver a profesionales</Link>
         {isAdmin && (
-          <Link className={styles.editButton} to={`/professionals/${professionalId}/edit`} state={{ returnPath }}>
-            <Icon name="edit" size={18} />Editar profesional
-          </Link>
+          <div className={styles.adminActions}>
+            <Link className={styles.assignmentsButton} to={`/professionals/${professionalId}/assignments`} state={{ returnPath }}>
+              <Icon name="patients" size={18} />Gestionar pacientes
+            </Link>
+            <Link className={styles.editButton} to={`/professionals/${professionalId}/edit`} state={{ returnPath }}>
+              <Icon name="edit" size={18} />Editar profesional
+            </Link>
+          </div>
         )}
       </div>
 

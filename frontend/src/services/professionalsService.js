@@ -1,6 +1,8 @@
 import { pb } from "../lib/pocketbase";
 
 export const PROFESSIONALS_PER_PAGE = 10;
+export const ASSIGNMENTS_PER_PAGE = 10;
+export const ASSIGNMENT_CANDIDATES_PER_PAGE = 8;
 
 const BASE_FILTER = "staff_user.role = {:professionalRole}";
 
@@ -122,6 +124,129 @@ export async function getProfessionalAssignments(professionalId) {
       assignment,
       patient: assignment.expand.patient,
     }));
+}
+
+function assignmentFilter(professionalId, search, status) {
+  const filters = ["professional = {:professionalId}"];
+  const params = { professionalId };
+  if (search) {
+    filters.push("(patient.first_name ~ {:search} || patient.last_name ~ {:search} || patient.document_number ~ {:search})");
+    params.search = search;
+  }
+  if (status === "active" || status === "inactive") {
+    filters.push("active = {:active}");
+    params.active = status === "active";
+  }
+  return pb.filter(filters.join(" && "), params);
+}
+
+export function getProfessionalAssignmentsPage({ professionalId, page, search, status }) {
+  return pb.collection("patient_professionals").getList(page, ASSIGNMENTS_PER_PAGE, {
+    filter: assignmentFilter(professionalId, search, status),
+    expand: "patient",
+    sort: "-active,patient.last_name,patient.first_name",
+    requestKey: null,
+  });
+}
+
+async function getAssignmentMetric(professionalId, active) {
+  const parts = ["professional = {:professionalId}"];
+  const params = { professionalId };
+  if (typeof active === "boolean") {
+    parts.push("active = {:active}");
+    params.active = active;
+  }
+  return pb.collection("patient_professionals").getList(1, 1, {
+    filter: pb.filter(parts.join(" && "), params),
+    fields: "id",
+    requestKey: null,
+  }).then((result) => result.totalItems);
+}
+
+export async function getProfessionalAssignmentMetrics(professionalId) {
+  const [total, active, inactive] = await Promise.all([
+    getAssignmentMetric(professionalId),
+    getAssignmentMetric(professionalId, true),
+    getAssignmentMetric(professionalId, false),
+  ]);
+  return { total, active, inactive };
+}
+
+export async function searchAssignmentCandidates({ professionalId, search, page = 1 }) {
+  const filters = ["status = {:patientStatus}"];
+  const params = { patientStatus: "active" };
+  if (search) {
+    filters.push("(first_name ~ {:search} || last_name ~ {:search} || document_number ~ {:search})");
+    params.search = search;
+  }
+  const result = await pb.collection("patients").getList(page, ASSIGNMENT_CANDIDATES_PER_PAGE, {
+    filter: pb.filter(filters.join(" && "), params),
+    sort: "last_name,first_name",
+    requestKey: null,
+  });
+  const patientIds = result.items.map((patient) => patient.id);
+  let relations = [];
+  if (patientIds.length) {
+    const relationParts = ["professional = {:professionalId}"];
+    const relationParams = { professionalId };
+    const patientParts = patientIds.map((patientId, index) => {
+      const key = `patientId${index}`;
+      relationParams[key] = patientId;
+      return `patient = {:${key}}`;
+    });
+    relationParts.push(`(${patientParts.join(" || ")})`);
+    relations = await pb.collection("patient_professionals").getFullList({
+      filter: pb.filter(relationParts.join(" && "), relationParams),
+      requestKey: null,
+    });
+  }
+  const byPatient = new Map(relations.map((relation) => [relation.patient, relation]));
+  return {
+    ...result,
+    items: result.items.map((patient) => ({ patient, assignment: byPatient.get(patient.id) || null })),
+  };
+}
+
+export async function findPatientProfessionalAssignment(professionalId, patientId) {
+  try {
+    return await pb.collection("patient_professionals").getFirstListItem(
+      pb.filter("professional = {:professionalId} && patient = {:patientId}", { professionalId, patientId }),
+      { requestKey: null },
+    );
+  } catch (error) {
+    if (error?.status === 404) return null;
+    throw error;
+  }
+}
+
+export function createPatientProfessionalAssignment(professionalId, patientId) {
+  return pb.collection("patient_professionals").create({
+    patient: patientId,
+    professional: professionalId,
+    assigned_at: new Date().toISOString(),
+    unassigned_at: "",
+    active: true,
+  }, { requestKey: null });
+}
+
+export function reactivatePatientProfessionalAssignment(assignmentId) {
+  return pb.collection("patient_professionals").update(assignmentId, {
+    active: true,
+    assigned_at: new Date().toISOString(),
+    unassigned_at: "",
+  }, { requestKey: null });
+}
+
+export function deactivatePatientProfessionalAssignment(assignmentId) {
+  return pb.collection("patient_professionals").update(assignmentId, {
+    active: false,
+    unassigned_at: new Date().toISOString(),
+  }, { requestKey: null });
+}
+
+export function isDuplicateAssignmentError(error) {
+  const response = error?.response || error?.data || {};
+  return error?.status === 400 && /unique|already|exist|duplicate/i.test(JSON.stringify(response));
 }
 
 function buildFilter({ search, profession, specialty, status } = {}) {
