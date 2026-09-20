@@ -2,6 +2,7 @@ import { Link, useLocation, useParams } from "react-router";
 import { Icon } from "../../components/common/Icon";
 import { SectionState } from "../../components/dashboard/SectionState";
 import { useProfessionalDetail } from "../../hooks/useProfessionalDetail";
+import { useAuth } from "../../hooks/useAuth";
 import { formatDate, formatDateTime } from "../../utils/date";
 import {
   getFullName,
@@ -53,6 +54,7 @@ function roleLabel(role) {
 export function ProfessionalProfilePage() {
   const { professionalId } = useParams();
   const location = useLocation();
+  const { isAdmin } = useAuth();
   const detail = useProfessionalDetail(professionalId);
   const returnPath = safeReturnPath(location.state?.returnPath);
 
@@ -86,13 +88,25 @@ export function ProfessionalProfilePage() {
 
   return (
     <main className={styles.page}>
+      {location.state?.professionalUpdated && (
+        <div className={styles.success} role="status">
+          <Icon name="check" size={20} /> La información del profesional se actualizó correctamente.
+        </div>
+      )}
       <nav className={styles.breadcrumb} aria-label="Migas de pan">
         <Link to="/">Portal Administrativo</Link><Icon name="chevron" size={16} />
         <Link to={returnPath}>Profesionales</Link><Icon name="chevron" size={16} />
         <strong aria-current="page">{name}</strong>
       </nav>
 
-      <Link className={styles.back} to={returnPath}><Icon name="arrow-left" size={18} />Volver a profesionales</Link>
+      <div className={styles.topActions}>
+        <Link className={styles.back} to={returnPath}><Icon name="arrow-left" size={18} />Volver a profesionales</Link>
+        {isAdmin && (
+          <Link className={styles.editButton} to={`/professionals/${professionalId}/edit`} state={{ returnPath }}>
+            <Icon name="edit" size={18} />Editar profesional
+          </Link>
+        )}
+      </div>
 
       <header className={styles.profileHeader}>
         <span className={styles.avatar} aria-hidden="true">{getInitials(professional.first_name, professional.last_name, "PR")}</span>

@@ -3,7 +3,11 @@
 .breadcrumb a, .back { color: #12349a; }
 .breadcrumb strong { color: #172233; }
 .breadcrumb a:hover, .back:hover { text-decoration: underline; }
-.back { width: fit-content; min-height: 44px; margin: 0 0 14px auto; display: flex; align-items: center; gap: 6px; font-weight: 650; }
+.topActions { margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.back { width: fit-content; min-height: 44px; display: flex; align-items: center; gap: 6px; font-weight: 650; }
+.editButton { min-height: 44px; padding: 0 17px; border: 1px solid #12349a; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; color: #fff; background: #12349a; font-weight: 750; }
+.editButton:hover { background: #0c287e; }
+.success { margin-bottom: 18px; padding: 13px 15px; border: 1px solid #b9dfce; border-radius: 10px; display: flex; align-items: center; gap: 9px; color: #126b4d; background: #eaf7f0; }
 .profileHeader { padding: 26px; border: 1px solid #cbd2df; border-radius: 14px; display: grid; grid-template-columns: 86px minmax(0, 1fr); align-items: center; gap: 24px; background: #fff; box-shadow: 0 1px 3px rgba(20, 36, 84, .04); }
 .avatar { width: 86px; height: 86px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #12349a; font-size: 35px; font-weight: 750; }
 .identity { min-width: 0; }
@@ -55,9 +59,11 @@
 .state button { color: #fff; background: #12349a; }
 .page :is(a, button):focus-visible { outline: 3px solid rgba(40, 86, 199, .3); outline-offset: 2px; }
 @media (max-width: 1100px) { .page { padding-right: 30px; padding-left: 30px; } .columns { grid-template-columns: 1fr; } .secondaryColumn { grid-template-columns: repeat(2, minmax(0, 1fr)); } .notesCard { grid-column: 1 / -1; } }
-@media (max-width: 900px) { .page { padding: 24px 22px 100px; } .breadcrumb { display: none; } .back { margin-right: auto; margin-left: 0; } }
+@media (max-width: 900px) { .page { padding: 24px 22px 100px; } .breadcrumb { display: none; } }
 @media (max-width: 700px) {
   .page { padding: 18px 12px 105px; }
+  .topActions { align-items: stretch; flex-direction: column; }
+  .editButton { justify-content: center; }
   .profileHeader { padding: 20px 16px; grid-template-columns: 64px minmax(0, 1fr); gap: 15px; }
   .avatar { width: 64px; height: 64px; font-size: 25px; }
   .nameRow { align-items: flex-start; flex-direction: column; gap: 8px; }

@@ -11,6 +11,79 @@ export function getProfessionalDetail(professionalId) {
   });
 }
 
+export function updateProfessional(professionalId, payload) {
+  return pb.collection("professionals").update(professionalId, payload, {
+    requestKey: null,
+  });
+}
+
+export function updateProfessionalAccount(staffUserId, payload) {
+  return pb.collection("staff_users").update(staffUserId, payload, {
+    requestKey: null,
+  });
+}
+
+export function normalizeProfessionalDocument(documentNumber) {
+  return `${documentNumber ?? ""}`.replace(/[\s.-]+/g, "").toUpperCase();
+}
+
+export async function findProfessionalByDocumentNumber(documentNumber, excludeProfessionalId) {
+  const normalized = normalizeProfessionalDocument(documentNumber);
+  if (!normalized) return null;
+
+  const filters = ["document_number = {:documentNumber}"];
+  const params = { documentNumber: normalized };
+  if (excludeProfessionalId) {
+    filters.push("id != {:excludeProfessionalId}");
+    params.excludeProfessionalId = excludeProfessionalId;
+  }
+
+  try {
+    return await pb.collection("professionals").getFirstListItem(
+      pb.filter(filters.join(" && "), params),
+      { requestKey: null },
+    );
+  } catch (error) {
+    if (error?.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function findStaffUserByEmail(email, excludeStaffUserId) {
+  const normalized = `${email ?? ""}`.trim().toLowerCase();
+  if (!normalized) return null;
+
+  const filters = ["email = {:email}"];
+  const params = { email: normalized };
+  if (excludeStaffUserId) {
+    filters.push("id != {:excludeStaffUserId}");
+    params.excludeStaffUserId = excludeStaffUserId;
+  }
+
+  try {
+    return await pb.collection("staff_users").getFirstListItem(
+      pb.filter(filters.join(" && "), params),
+      { requestKey: null },
+    );
+  } catch (error) {
+    if (error?.status === 404) return null;
+    throw error;
+  }
+}
+
+function hasUniqueError(error, field) {
+  const fieldError = error?.response?.data?.[field] || error?.data?.data?.[field];
+  return /unique|already|exist/i.test(`${fieldError?.code ?? ""} ${fieldError?.message ?? ""}`);
+}
+
+export function isDuplicateProfessionalDocumentError(error) {
+  return hasUniqueError(error, "document_number");
+}
+
+export function isDuplicateStaffEmailError(error) {
+  return hasUniqueError(error, "email");
+}
+
 export async function getProfessionalAssignments(professionalId) {
   const records = await pb.collection("patient_professionals").getFullList({
     filter: pb.filter(

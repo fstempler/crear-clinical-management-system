@@ -1,0 +1,106 @@
+.page { max-width: 1420px; margin: 0 auto; padding: 34px 42px 100px; color: #172233; }
+.breadcrumb { margin-bottom: 23px; display: flex; align-items: center; gap: 7px; color: #5e6878; font-size: 14px; }
+.breadcrumb a, .back { color: #12349a; }
+.breadcrumb a:hover, .back:hover { text-decoration: underline; }
+.back { min-height: 44px; padding: 0; border: 0; display: inline-flex; align-items: center; gap: 7px; background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+.heading { margin: 8px 0 22px; }
+.heading h1 { margin: 0; font-size: clamp(32px, 3vw, 42px); line-height: 1.15; }
+.heading p { margin: 9px 0 0; color: #5e6878; font-size: 17px; }
+.professionalSummary { min-height: 92px; margin-bottom: 24px; padding: 16px 19px; border: 1px solid #cbd2df; border-radius: 14px; display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; align-items: center; gap: 15px; background: #fff; box-shadow: 0 2px 8px rgba(20, 36, 84, .05); }
+.avatar { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #12349a; font-size: 20px; font-weight: 750; }
+.summaryIdentity { min-width: 0; display: grid; gap: 4px; }
+.summaryIdentity strong { font-size: 19px; overflow-wrap: anywhere; }
+.summaryIdentity span { color: #465164; }
+.summaryIdentity small { color: #687386; overflow-wrap: anywhere; }
+.status { padding: 6px 10px; border: 1px solid; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.active { border-color: #b9dfce; color: #126b4d; background: #eaf7f0; }
+.inactive { border-color: #cbd2df; color: #4f596a; background: #eef1f6; }
+.unavailable { border-color: #cbd2df; color: #5e6878; background: #f7f9fc; }
+.columns { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(330px, .85fr); align-items: start; gap: 24px; }
+.primaryColumn, .secondaryColumn { min-width: 0; }
+.secondaryColumn { display: grid; gap: 24px; }
+.formCard { overflow: hidden; border: 1px solid #cbd2df; border-radius: 14px; background: #fff; box-shadow: 0 2px 7px rgba(20, 36, 84, .04); }
+.cardHeading { padding: 19px 22px; border-bottom: 1px solid #dde3ec; display: flex; align-items: flex-start; gap: 12px; }
+.cardHeading > svg { margin-top: 2px; color: #12349a; flex: 0 0 auto; }
+.cardHeading h2 { margin: 0; color: #142454; font-size: 21px; }
+.cardHeading p { margin: 5px 0 0; color: #687386; font-size: 13px; line-height: 1.45; }
+.formCard fieldset { min-width: 0; margin: 0; padding: 23px 24px 25px; border: 0; border-bottom: 1px solid #e0e5ed; }
+.formCard legend { width: 100%; margin-bottom: 18px; padding: 0; color: #142454; font-size: 18px; font-weight: 750; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 22px; }
+.singleGrid { display: grid; }
+.field { min-width: 0; display: flex; flex-direction: column; }
+.field label { margin-bottom: 7px; color: #26344b; font-size: 14px; font-weight: 700; }
+.field label span { color: #ba1a1a; }
+.hint { margin: -3px 0 7px; color: #687386; font-size: 12px; line-height: 1.4; }
+.field input, .field textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid #bfc7d5; border-radius: 8px; color: #172233; background: #fff; font: inherit; transition: border-color .15s, box-shadow .15s; }
+.field textarea { min-height: 118px; resize: vertical; }
+.field input:hover, .field textarea:hover { border-color: #7f8ca2; }
+.field input:focus, .field textarea:focus { border-color: #2856c7; outline: 0; box-shadow: 0 0 0 3px rgba(40, 86, 199, .17); }
+.field :is(input, textarea)[aria-invalid="true"] { border-color: #ba1a1a; }
+.fieldError { margin-top: 6px; color: #9e2525; font-size: 13px; }
+.readOnly { min-height: 68px; padding: 10px 12px; border: 1px solid #d8deea; border-radius: 8px; display: grid; align-content: center; gap: 4px; background: #f7f9fc; }
+.readOnly span { color: #687386; font-size: 12px; font-weight: 700; }
+.readOnly strong { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.formActions { padding: 20px 24px; display: flex; justify-content: flex-end; gap: 11px; background: #fbfcfe; }
+.cancel, .submit, .activate, .deactivate { min-height: 46px; padding: 0 18px; border-radius: 8px; font: inherit; font-weight: 750; cursor: pointer; }
+.cancel { border: 1px solid #aeb8c9; color: #142454; background: #fff; }
+.submit { border: 1px solid #12349a; color: #fff; background: #12349a; }
+.submit:hover:not(:disabled) { background: #0c287e; }
+.activate { border: 1px solid #126b4d; color: #fff; background: #126b4d; }
+.deactivate { border: 1px solid #a12626; color: #fff; background: #a12626; }
+.cancel:disabled, .submit:disabled, .activate:disabled, .deactivate:disabled { opacity: .55; cursor: not-allowed; }
+.message { margin: 18px 22px 0; padding: 12px 14px; border: 1px solid; border-radius: 9px; font-size: 14px; line-height: 1.45; }
+.success { border-color: #b9dfce; color: #126b4d; background: #eaf7f0; }
+.error { border-color: #e5b4b4; color: #922d2d; background: #fff2f2; }
+.secondaryColumn form .formCard > .field { margin: 22px; }
+.accountDetails { margin: 0 22px 22px; display: grid; gap: 12px; }
+.accountMissing { margin: 22px; padding: 24px 18px; border-radius: 10px; display: grid; justify-items: center; gap: 8px; color: #5e6878; background: #f7f9fc; text-align: center; }
+.accountMissing svg { color: #12349a; }
+.accountMissing p { margin: 0; line-height: 1.5; }
+.sensitiveCard { border-color: #e0c5b6; }
+.sensitiveCard .cardHeading { background: #fffaf6; }
+.sensitiveAction { padding: 22px; display: grid; gap: 18px; }
+.sensitiveAction p, .muted { margin: 5px 0 0; color: #687386; line-height: 1.5; }
+.sensitiveAction button { justify-self: start; }
+.muted { padding: 0 22px 22px; }
+.dialogBackdrop { position: fixed; inset: 0; z-index: 1000; padding: 20px; display: grid; place-items: center; background: rgba(13, 23, 43, .58); }
+.dialog { width: min(100%, 500px); padding: 28px; border-radius: 15px; background: #fff; box-shadow: 0 20px 60px rgba(0, 0, 0, .25); }
+.dialogIcon { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; }
+.activateIcon { color: #126b4d; background: #eaf7f0; }
+.deactivateIcon { color: #922d2d; background: #fff0f0; }
+.dialog h2 { margin: 18px 0 10px; font-size: 25px; }
+.dialog p { margin: 0 0 10px; color: #465164; line-height: 1.55; }
+.dialogActions { margin-top: 24px; display: flex; justify-content: flex-end; gap: 10px; }
+.state { max-width: 620px; margin: 80px auto; padding: 42px 28px; border: 1px solid #cbd2df; border-radius: 14px; display: grid; justify-items: center; gap: 14px; background: #fff; text-align: center; }
+.state > svg { color: #12349a; }
+.state h1, .state p { margin: 0; }
+.state p { color: #5e6878; }
+.state > div { display: flex; gap: 10px; }
+.state a, .state button { min-height: 44px; padding: 0 16px; border: 1px solid #12349a; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: #12349a; background: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.state button { color: #fff; background: #12349a; }
+.page :is(a, button, input, textarea):focus-visible, .dialog :is(button):focus-visible { outline: 3px solid rgba(40, 86, 199, .3); outline-offset: 2px; }
+@media (max-width: 1100px) { .page { padding-right: 28px; padding-left: 28px; } .columns { grid-template-columns: 1fr; } .secondaryColumn { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+@media (max-width: 900px) { .page { padding: 24px 20px 118px; } .breadcrumb { display: none; } }
+@media (max-width: 700px) {
+  .page { padding: 16px 12px 122px; }
+  .heading h1 { font-size: 28px; }
+  .heading p { font-size: 15px; }
+  .professionalSummary { grid-template-columns: 50px minmax(0, 1fr); padding: 14px; }
+  .avatar { width: 50px; height: 50px; font-size: 17px; }
+  .professionalSummary .status { grid-column: 1 / -1; justify-self: start; }
+  .grid, .secondaryColumn { grid-template-columns: 1fr; }
+  .cardHeading { padding: 17px 16px; }
+  .cardHeading h2 { font-size: 19px; }
+  .formCard fieldset { padding: 21px 16px 23px; }
+  .formActions { padding: 17px 16px; flex-direction: column-reverse; }
+  .formActions button { width: 100%; min-height: 50px; }
+  .secondaryColumn form .formCard > .field, .accountDetails, .accountMissing { margin-right: 16px; margin-left: 16px; }
+  .message { margin-right: 16px; margin-left: 16px; }
+  .sensitiveAction { padding: 20px 16px; }
+  .sensitiveAction button { width: 100%; min-height: 50px; }
+  .dialog { padding: 22px 18px; }
+  .dialogActions { flex-direction: column-reverse; }
+  .dialogActions button { width: 100%; min-height: 50px; }
+  .state { margin: 34px auto; padding: 34px 18px; }
+  .state > div { width: 100%; flex-direction: column; }
+}

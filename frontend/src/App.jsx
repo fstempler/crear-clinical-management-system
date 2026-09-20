@@ -16,6 +16,7 @@ import { EditEvolutionPage } from "./pages/evolutions/EditEvolutionPage";
 import { ProfessionalsPage } from "./pages/professionals/ProfessionalsPage";
 import { ProfessionalProfilePage } from "./pages/professionals/ProfessionalProfilePage";
 import { PlaceholderPage } from "./pages/placeholder/PlaceholderPage";
+import { EditProfessionalPage } from "./pages/professionals/EditProfessionalPage";
 
 function App() {
   return (
@@ -35,16 +36,11 @@ function App() {
 
           <Route path="patients" element={<PatientsPage />} />
 
-          <Route
-            path="patients/:patientId"
-            element={<PatientProfilePage />}
-          />
+          <Route path="patients/:patientId" element={<PatientProfilePage />} />
 
           <Route
             path="activity"
-            element={
-              <PlaceholderPage title="Actividad reciente" />
-            }
+            element={<PlaceholderPage title="Actividad reciente" />}
           />
 
           <Route
@@ -52,23 +48,15 @@ function App() {
             element={<PlaceholderPage title="Mi cuenta" />}
           />
 
-          <Route
-            element={<RoleRoute allowedRoles={["admin"]} />}
-          >
-            <Route
-              path="patients/new"
-              element={<NewPatientPage />}
-            />
+          <Route element={<RoleRoute allowedRoles={["admin"]} />}>
+            <Route path="patients/new" element={<NewPatientPage />} />
 
             <Route
               path="patients/:patientId/administration"
               element={<PatientAdministrationPage />}
             />
 
-            <Route
-              path="professionals"
-              element={<ProfessionalsPage />}
-            />
+            <Route path="professionals" element={<ProfessionalsPage />} />
 
             <Route
               path="professionals/:professionalId"
@@ -77,14 +65,12 @@ function App() {
           </Route>
 
           <Route
-            element={
-              <RoleRoute allowedRoles={["professional"]} />
-            }
-          >
-            <Route
-              path="evolutions/new"
-              element={<NewEvolutionPage />}
-            />
+            path="professionals/:professionalId/edit"
+            element={<EditProfessionalPage />}
+          />
+
+          <Route element={<RoleRoute allowedRoles={["professional"]} />}>
+            <Route path="evolutions/new" element={<NewEvolutionPage />} />
 
             <Route
               path="evolutions/:evolutionId/edit"
@@ -93,11 +79,7 @@ function App() {
           </Route>
 
           <Route
-            element={
-              <RoleRoute
-                allowedRoles={["admin", "professional"]}
-              />
-            }
+            element={<RoleRoute allowedRoles={["admin", "professional"]} />}
           >
             <Route
               path="patients/:patientId/history"
@@ -117,9 +99,7 @@ function App() {
 
           <Route
             path="*"
-            element={
-              <PlaceholderPage title="Página no encontrada" />
-            }
+            element={<PlaceholderPage title="Página no encontrada" />}
           />
         </Route>
       </Routes>
