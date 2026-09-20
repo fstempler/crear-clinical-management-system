@@ -62,12 +62,12 @@ function App() {
               path="professionals/:professionalId"
               element={<ProfessionalProfilePage />}
             />
-          </Route>
 
-          <Route
-            path="professionals/:professionalId/edit"
-            element={<EditProfessionalPage />}
-          />
+            <Route
+              path="professionals/:professionalId/edit"
+              element={<EditProfessionalPage />}
+            />
+          </Route>
 
           <Route element={<RoleRoute allowedRoles={["professional"]} />}>
             <Route path="evolutions/new" element={<NewEvolutionPage />} />
