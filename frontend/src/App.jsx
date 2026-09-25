@@ -3,6 +3,8 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { RoleRoute } from "./components/auth/RoleRoute";
 import { AppLayout } from "./components/layouts/AppLayout";
 import { LoginPage } from "./pages/auth/LoginPage";
+import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/auth/ResetPasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { PatientsPage } from "./pages/patients/PatientsPage";
 import { NewPatientPage } from "./pages/patients/NewPatientPage";
@@ -26,6 +28,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/recuperar-contrasena" element={<ForgotPasswordPage />} />
+        <Route path="/restablecer-contrasena" element={<ResetPasswordPage />} />
 
         <Route
           path="/"
