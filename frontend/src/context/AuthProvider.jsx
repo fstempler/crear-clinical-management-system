@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthContext";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(pb.authStore.record);
   const [isLoading, setIsLoading] = useState(true);
+  const [sessionStatus, setSessionStatus] = useState("active");
 
   useEffect(() => {
     let active = true;
@@ -17,6 +18,10 @@ export function AuthProvider({ children }) {
 
     const validateSession = async () => {
       if (!pb.authStore.isValid) {
+        if (pb.authStore.token && pb.authStore.record) {
+          pb.authStore.clear();
+          if (active) setSessionStatus("expired");
+        }
         if (active) {
           setIsLoading(false);
         }
@@ -29,8 +34,9 @@ export function AuthProvider({ children }) {
         });
       } catch (error) {
         // Una cancelación no significa que las credenciales sean inválidas.
-        if (active && !error?.isAbort) {
+        if (active && !error?.isAbort && (error?.status === 401 || error?.status === 403 || (error?.status === 400 && /invalid|expired|token/i.test(error?.message || "")))) {
           pb.authStore.clear();
+          setSessionStatus("expired");
         }
       } finally {
         if (active) {
@@ -52,24 +58,27 @@ export function AuthProvider({ children }) {
       .collection("staff_users")
       .authWithPassword(email, password);
 
+    setSessionStatus("active");
     return authData.record;
   };
 
   const logout = () => {
     pb.authStore.clear();
+    setSessionStatus("active");
   };
 
   const value = useMemo(
     () => ({
       user,
       isLoading,
+      sessionStatus,
       login,
       logout,
       isAuthenticated: Boolean(pb.authStore.isValid && user && user.active),
       isAdmin: user?.role === "admin",
       isProfessional: user?.role === "professional",
     }),
-    [user, isLoading],
+    [user, isLoading, sessionStatus],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

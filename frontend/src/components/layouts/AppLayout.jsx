@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import { useProfessionalProfile } from "../../hooks/useProfessionalProfile";
 import { getUserPresentation } from "../../utils/presentation";
+import { NetworkStatusBanner } from "../system/NetworkStatusBanner";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { MobileBottomNav } from "./MobileBottomNav";
@@ -49,6 +50,7 @@ export function AppLayout() {
           presentation={presentation}
           onMenu={() => setMenuOpen(true)}
         />
+        <NetworkStatusBanner />
         <Outlet context={{ profileState, presentation }} />
       </div>
       <MobileBottomNav role={user.role} />

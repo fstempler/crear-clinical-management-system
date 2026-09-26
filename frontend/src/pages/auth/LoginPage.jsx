@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
+import { RouteLoadingFallback } from "../../components/system/RouteLoadingFallback";
 import { useAuth } from "../../hooks/useAuth";
 import logo from "../../assets/crear-logo.png";
 import styles from "./LoginPage.module.scss";
@@ -15,15 +16,17 @@ export function LoginPage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmation] = useState(() => location.state?.confirmation || "");
-  const destination = location.state?.from?.pathname || "/";
+  const from = location.state?.from;
+  const destination = typeof from?.pathname === "string" && from.pathname.startsWith("/") && !from.pathname.startsWith("//") && !["/login", "/recuperar-contrasena", "/restablecer-contrasena"].includes(from.pathname) ? `${from.pathname}${typeof from.search === "string" && from.search.startsWith("?") ? from.search : ""}` : "/";
+  const sessionExpired = Boolean(location.state?.sessionExpired);
 
   useEffect(() => {
     if (!location.state?.confirmation) return;
     navigate(location.pathname, {
       replace: true,
-      state: location.state?.from ? { from: location.state.from } : null,
+      state: location.state?.from ? { from: location.state.from, sessionExpired } : null,
     });
-  }, [location.pathname, location.state, navigate]);
+  }, [location.pathname, location.state, navigate, sessionExpired]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,7 +43,7 @@ export function LoginPage() {
     }
   };
 
-  if (isLoading) return <p>Cargando sesión...</p>;
+  if (isLoading) return <RouteLoadingFallback />;
   if (isAuthenticated) {
     return <Navigate to={destination} replace />;
   }
@@ -66,6 +69,7 @@ export function LoginPage() {
             <p>Ingresá tus datos para acceder a la plataforma</p>
           </header>
 
+          {sessionExpired && <p className={styles.confirmation} role="status">Tu sesión venció. Iniciá sesión nuevamente para continuar.</p>}
           {confirmation && (
             <p className={styles.confirmation} role="status" aria-live="polite">
               {confirmation}

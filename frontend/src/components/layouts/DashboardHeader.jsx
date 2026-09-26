@@ -9,6 +9,10 @@ const routeTitles = {
   "/professionals": "Profesionales",
   "/activity": "Actividad",
   "/account": "Mi cuenta",
+  "/403": "Sin permisos",
+  "/404": "Página no encontrada",
+  "/error": "Error",
+  "/offline": "Sin conexión",
   "/evolutions/new": "Nueva evolución",
 };
 
@@ -25,7 +29,7 @@ function getCurrentTitle(pathname) {
     return "Detalle de evolución";
   }
 
-  return "Inicio";
+  return "Página no encontrada";
 }
 
 export function DashboardHeader({ presentation, onMenu }) {

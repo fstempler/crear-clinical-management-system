@@ -1,16 +1,17 @@
 import { Navigate, useLocation } from "react-router";
+import { RouteLoadingFallback } from "../system/RouteLoadingFallback";
 import { useAuth } from "../../hooks/useAuth";
 
 export function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, sessionStatus } = useAuth();
   const location = useLocation();
 
   if (isLoading) {
-    return <p>Cargando sesión...</p>;
+    return <RouteLoadingFallback />;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+    return <Navigate to="/login" replace state={{ from: { pathname: location.pathname, search: location.search }, sessionExpired: sessionStatus === "expired" }} />;
   }
 
   return children;

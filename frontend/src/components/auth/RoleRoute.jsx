@@ -1,11 +1,12 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 
 export function RoleRoute({ allowedRoles }) {
   const { user } = useAuth();
+  const location = useLocation();
   return allowedRoles.includes(user?.role) ? (
     <Outlet />
   ) : (
-    <Navigate to="/" replace />
+    <Navigate to="/403" replace state={{ from: { pathname: location.pathname } }} />
   );
 }

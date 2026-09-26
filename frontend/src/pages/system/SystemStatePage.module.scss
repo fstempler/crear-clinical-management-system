@@ -1,0 +1,11 @@
+.page { display: grid; place-items: center; min-height: min(65vh, 680px); padding: 32px 24px 100px; }
+.card { width: min(100%, 620px); padding: clamp(28px, 5vw, 52px); background: white; border: 1px solid #e1e9f5; border-radius: 18px; box-shadow: 0 14px 36px rgba(20,36,84,.08); color: #142454; }
+.code { display: inline-block; color: #2856c7; background: #e9f0ff; border-radius: 8px; padding: 8px 13px; font-weight: 800; letter-spacing: .04em; }
+.card h1 { font-size: clamp(1.55rem, 3vw, 2.1rem); margin: 22px 0 10px; line-height: 1.2; }
+.card h1:focus { outline: none; }
+.card p { line-height: 1.6; color: #52617b; margin: 0 0 28px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.actions a, .actions button { box-sizing: border-box; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 11px 18px; background: #12349a; border: 1px solid #12349a; border-radius: 8px; color: white; font: inherit; font-weight: 650; text-decoration: none; cursor: pointer; }
+.actions .secondary { background: white; color: #12349a; }
+.actions a:focus-visible, .actions button:focus-visible { outline: 3px solid #2856c7; outline-offset: 3px; }
+@media (max-width: 560px) { .page { padding: 24px 16px 32px; min-height: 60vh; } .actions { flex-direction: column; } .actions a, .actions button { width: 100%; } }
