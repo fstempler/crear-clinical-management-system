@@ -27,6 +27,7 @@ const NewProfessionalPage = lazyNamed(() => import("./pages/professionals/NewPro
 const ProfessionalAssignmentsPage = lazyNamed(() => import("./pages/professionals/ProfessionalAssignmentsPage"), "ProfessionalAssignmentsPage");
 const AccountPage = lazyNamed(() => import("./pages/account/AccountPage"), "AccountPage");
 const ActivityPage = lazyNamed(() => import("./pages/activity/ActivityPage"), "ActivityPage");
+const AuditPage = lazyNamed(() => import("./pages/audit/AuditPage"), "AuditPage");
 const ForbiddenPage = lazyNamed(() => import("./pages/system/ForbiddenPage"), "ForbiddenPage");
 const NotFoundPage = lazyNamed(() => import("./pages/system/NotFoundPage"), "NotFoundPage");
 const SystemErrorPage = lazyNamed(() => import("./pages/system/SystemErrorPage"), "SystemErrorPage");
@@ -48,6 +49,7 @@ function App() {
       <Route path="error" element={<SystemErrorPage />} />
       <Route path="offline" element={<OfflinePage />} />
       <Route element={<RoleRoute allowedRoles={["admin"]} />}>
+        <Route path="audit" element={<AuditPage />} />
         <Route path="patients/new" element={<NewPatientPage />} />
         <Route path="patients/:patientId/administration" element={<PatientAdministrationPage />} />
         <Route path="professionals" element={<ProfessionalsPage />} />

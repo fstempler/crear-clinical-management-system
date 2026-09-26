@@ -3,7 +3,7 @@ import { Icon } from "../common/Icon";
 import { getNavigation } from "./navigation";
 import styles from "./MobileBottomNav.module.scss";
 export function MobileBottomNav({ role }) {
-  const items = getNavigation(role).slice(0, 4);
+  const items = getNavigation(role);
   return (
     <nav className={styles.nav} aria-label="Navegación móvil">
       {items.map((item) => (

@@ -14,13 +14,16 @@
     justify-content: space-around;
   }
   .nav a {
-    min-width: 64px;
+    min-width: 0;
+    flex: 1;
+    min-height: 44px;
+    justify-content: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3px;
     color: #252b38;
-    font-size: 12px;
+    font-size: clamp(10px, 2.8vw, 12px);
   }
   .nav a:hover,
   .nav a:focus-visible,

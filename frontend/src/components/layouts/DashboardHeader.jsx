@@ -8,6 +8,7 @@ const routeTitles = {
   "/patients/new": "Nuevo paciente",
   "/professionals": "Profesionales",
   "/activity": "Actividad",
+  "/audit": "Auditoría",
   "/account": "Mi cuenta",
   "/403": "Sin permisos",
   "/404": "Página no encontrada",

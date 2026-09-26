@@ -1,0 +1,35 @@
+.page { max-width: 1200px; margin: 0 auto; padding: 34px 42px 110px; color: #172233; min-width: 0; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; font-size: 14px; color: #5e6878; }
+.breadcrumb a, .page a { color: #12349a; }
+.heading { margin-bottom: 24px; }
+.heading h1 { margin: 0; color: #142454; font-size: clamp(30px, 3vw, 42px); }
+.heading p { margin: 8px 0; color: #5e6878; line-height: 1.5; }
+.readonly { display: inline-flex; align-items: center; gap: 6px; color: #12349a; font-weight: 700; font-size: 14px; }
+.filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 20px; border: 1px solid #cbd2df; border-radius: 14px; background: white; }
+.filters > div { min-width: 0; display: grid; gap: 7px; }
+.filters label { font-size: 13px; font-weight: 700; color: #465164; }
+.filters input, .filters select { width: 100%; min-width: 0; height: 44px; padding: 0 11px; border: 1px solid #aeb7c5; border-radius: 8px; background: white; color: #172233; font: inherit; }
+.clear { justify-self: start; align-self: end; min-height: 44px; border: 0; background: transparent; color: #12349a; text-decoration: underline; cursor: pointer; }
+.clear:disabled { opacity: .5; cursor: default; }
+.summary { margin: 24px 0 14px; color: #5e6878; font-size: 14px; }
+.tableWrap { border: 1px solid #cbd2df; border-radius: 12px; background: white; overflow-x: auto; }
+.tableWrap table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+.tableWrap th { background: #f7f9fc; color: #142454; text-align: left; font-weight: 700; }
+.tableWrap th, .tableWrap td { padding: 12px 9px; vertical-align: top; border-bottom: 1px solid #e2e7ef; overflow-wrap: anywhere; }
+.tableWrap th:nth-child(1) { width: 13%; } .tableWrap th:nth-child(2) { width: 13%; } .tableWrap th:nth-child(3) { width: 10%; } .tableWrap th:nth-child(4) { width: 10%; } .tableWrap th:nth-child(5) { width: 10%; } .tableWrap th:nth-child(6) { width: 21%; } .tableWrap th:nth-child(7) { width: 15%; } .tableWrap th:nth-child(8) { width: 8%; }
+.tableWrap button, .card button { border: 0; background: transparent; color: #12349a; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; min-height: 44px; padding: 5px; }
+.cards { display: none; }
+.detail { background: #fff; border: 1px solid #b8c9ed; border-radius: 12px; padding: 20px; margin: 18px 0; box-shadow: 0 4px 18px rgba(20,36,84,.08); overflow-wrap: anywhere; }
+.detail h3 { margin: 0 0 16px; color: #142454; }
+.detail dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 24px; margin: 0 0 18px; }
+.detail dt { color: #5e6878; font-size: 13px; font-weight: 700; }
+.detail dd { margin: 3px 0 0; }
+.detail ul { margin: 0; padding-left: 20px; }
+.detail button, .empty button { min-height: 44px; padding: 0 16px; border: 1px solid #12349a; border-radius: 8px; background: #12349a; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+.contextLink { display: inline-flex; min-height: 44px; align-items: center; margin-bottom: 16px; }
+.empty { background: #fff; border: 1px solid #cbd2df; border-radius: 12px; text-align: center; padding: 38px 20px; }
+.empty svg { color: #12349a; } .empty h2 { color: #142454; font-size: 20px; } .empty p { color: #5e6878; }
+.page :is(a, button, input, select):focus-visible { outline: 3px solid rgba(40,86,199,.5); outline-offset: 2px; }
+@media (max-width: 1100px) { .tableWrap { display: none; } .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .card { min-width: 0; padding: 17px; border: 1px solid #cbd2df; border-radius: 12px; background: white; overflow-wrap: anywhere; } .card time { color: #5e6878; font-size: 13px; } .card h2 { font-size: 17px; color: #142454; margin: 8px 0; } .card p { margin: 7px 0; line-height: 1.5; } }
+@media (max-width: 900px) { .page { padding: 24px 22px 125px; } .breadcrumb { display: none; } .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .page { padding: 18px 12px 125px; } .filters { padding: 14px; } .search, .filters > div:nth-child(2), .filters > div:nth-child(3) { grid-column: 1 / -1; } .cards, .detail dl { grid-template-columns: minmax(0, 1fr); } }

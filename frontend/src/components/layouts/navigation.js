@@ -5,10 +5,9 @@ export function getNavigation(role) {
     { to: "/activity", label: "Actividad", icon: "activity" },
   ];
   if (role === "admin")
-    shared.splice(2, 0, {
-      to: "/professionals",
-      label: "Profesionales",
-      icon: "professional",
-    });
+    shared.splice(2, 0,
+      { to: "/professionals", label: "Profesionales", icon: "professional" },
+      { to: "/audit", label: "Auditoría", icon: "shield" },
+    );
   return shared;
 }
