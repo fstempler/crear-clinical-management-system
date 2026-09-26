@@ -22,6 +22,7 @@ import { EditProfessionalPage } from "./pages/professionals/EditProfessionalPage
 import { NewProfessionalPage } from "./pages/professionals/NewProfessionalPage";
 import { ProfessionalAssignmentsPage } from "./pages/professionals/ProfessionalAssignmentsPage";
 import { AccountPage } from "./pages/account/AccountPage";
+import { ActivityPage } from "./pages/activity/ActivityPage";
 
 function App() {
   return (
@@ -47,7 +48,7 @@ function App() {
 
           <Route
             path="activity"
-            element={<PlaceholderPage title="Actividad reciente" />}
+            element={<ActivityPage />}
           />
 
           <Route
